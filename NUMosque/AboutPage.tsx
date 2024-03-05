@@ -4,9 +4,9 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 const AboutPage = () => {
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.logoContainer}>
+            <View>
                 <Image source={require('./assets/Mosque_logo.png')} style={styles.logo} />
-                <Text style={styles.logoText}>NORTHUMBRIA ISLAMIC SOCIETY</Text>
+                <Text>NORTHUMBRIA ISLAMIC SOCIETY</Text>
             </View>
 
             <View style={styles.section}>
