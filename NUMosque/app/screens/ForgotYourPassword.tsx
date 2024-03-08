@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 const ForgotYourPassword = ({ navigation }) => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
-    const handleSendCode = () => {
-        // Implement send code logic here
-    };
-
-    const handlePasswordReset = () => {
-        // Implement password reset logic here
+    const handleSendResetEmail = () => {
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                Alert.alert(
+                    "Email Sent",
+                    "Check your email to reset your password.",
+                    [
+                        { text: "OK", onPress: () => navigation.goBack() }
+                    ]
+                );
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                // Error message handling
+                Alert.alert("Error", errorMessage);
+            });
     };
 
     return (
@@ -27,23 +38,12 @@ const ForgotYourPassword = ({ navigation }) => {
                 placeholder="Enter Email"
                 keyboardType="email-address"
             />
-            <TouchableOpacity style={styles.button} onPress={handleSendCode}>
-                <Text style={styles.buttonText}>Send me the code</Text>
-            </TouchableOpacity>
-            <TextInput
-                style={styles.input}
-                onChangeText={setPassword}
-                value={password}
-                placeholder="Choose a Password"
-                secureTextEntry
-            />
-            <TouchableOpacity style={styles.button} onPress={handlePasswordReset}>
-                <Text style={styles.buttonText}>Reset Password</Text>
+            <TouchableOpacity style={styles.button} onPress={handleSendResetEmail}>
+                <Text style={styles.buttonText}>Send Reset Email</Text>
             </TouchableOpacity>
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -69,6 +69,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20
     },
+    forgotPasswordText: {
+        color: '#3E8DF3',
+        marginBottom: 20,
+      },
     input: {
         width: '80%',
         height: 40,

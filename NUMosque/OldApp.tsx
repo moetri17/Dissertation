@@ -1,17 +1,14 @@
-
-
-
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUpScreen from './SignUpScreen'; // Ensure this path is correct
-import MenuScreen from './Menu'; // Ensure the path to Menu.js is correct
-import ForgotYourPassword from './ForgotYourPassword'; // Check this path
-import AboutPage from './AboutPage'; // make sure the path is correct
-import QuranSection from './QuranSection'; // Add this line to import QuranSection
-import QiblaFinder from './QiblaFinder';
-import Chatbot from './Chatbot';
+import MenuScreen from './app/screens/Menu'; // Ensure the path to Menu.js is correct
+import ForgotYourPassword from './app/screens/ForgotYourPassword'; // Check this path
+import AboutPage from './app/screens/AboutPage'; // make sure the path is correct
+import QuranSection from './app/screens/QuranSection'; // Add this line to import QuranSection
+import QiblaFinder from './app/screens/QiblaFinder';
+import Chatbot from './app/screens/Chatbot';
 
 
 const Stack = createStackNavigator();

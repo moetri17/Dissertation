@@ -1,7 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
+import { NavigationProp } from '@react-navigation/native'
+import { FIREBASE_AUTH } from '../../FirebaseConfig'
 
-const MenuScreen = ({ navigation }) => {
+
+interface RouterProps {
+  navigation: NavigationProp<any, any>;
+}
+
+const MenuScreen = ({ navigation} : RouterProps) => {
 
   const handleMenuPress = (menuName) => {
     switch (menuName) {
@@ -33,6 +40,7 @@ const MenuScreen = ({ navigation }) => {
         <MenuButton imageSource={require('./assets/settings.png')} text="Settings" onPress={() => handleMenuPress('Settings')} />
         <MenuButton imageSource={require('./assets/info.png')} text="About" onPress={() => handleMenuPress('About')} />
       </View>
+      <Button onPress={() => FIREBASE_AUTH.signOut() } title='Logout' />
     </View>
   );
 };
