@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../../FirebaseConfig'; // Make sure this path is correct
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = () => {
-    // Implement sign-up logic
-    alert('Sign Up button pressed');
+  const handleSignUp = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
+      console.log(userCredential); // You might want to do something with the userCredential, like navigation or setting user context
+      Alert.alert("Success", "Account created successfully!", [
+        { text: "OK", onPress: () => navigation.navigate('Inside') } // Navigate to login or another screen as appropriate
+      ]);
+    } catch (error) {
+      let errorMessage = "Failed to create account";
+      if (error instanceof Error) { // TypeScript type guard
+        errorMessage = error.message;
+      }
+      Alert.alert('Error', errorMessage);
+    }
   };
 
   return (

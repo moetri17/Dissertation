@@ -4,24 +4,20 @@ import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 const ForgotYourPassword = ({ navigation }) => {
     const [email, setEmail] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSendResetEmail = () => {
-        const auth = getAuth();
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                Alert.alert(
-                    "Email Sent",
-                    "Check your email to reset your password.",
-                    [
-                        { text: "OK", onPress: () => navigation.goBack() }
-                    ]
-                );
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                // Error message handling
-                Alert.alert("Error", errorMessage);
-            });
+    const handleSendResetEmail = async () => {
+        try {
+            const auth = getAuth();
+            await sendPasswordResetEmail(auth, email);
+            Alert.alert(
+                "Email Sent",
+                "Check your email to reset your password.",
+            );
+        } catch (error) {
+            setErrorMessage(error.message);
+            Alert.alert("Error", errorMessage);
+        }
     };
 
     return (
@@ -38,12 +34,14 @@ const ForgotYourPassword = ({ navigation }) => {
                 placeholder="Enter Email"
                 keyboardType="email-address"
             />
+            {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
             <TouchableOpacity style={styles.button} onPress={handleSendResetEmail}>
                 <Text style={styles.buttonText}>Send Reset Email</Text>
             </TouchableOpacity>
         </View>
     );
 };
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -69,10 +67,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20
     },
-    forgotPasswordText: {
-        color: '#3E8DF3',
-        marginBottom: 20,
-      },
     input: {
         width: '80%',
         height: 40,
@@ -93,6 +87,15 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    errorText: {
+        color: 'red',
+        marginBottom: 10
+    },
+    backButtonText: {
+        color: '#000',
         fontSize: 14,
         fontWeight: 'bold'
     }

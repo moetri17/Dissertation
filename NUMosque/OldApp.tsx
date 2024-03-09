@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignUpScreen from './SignUpScreen'; // Ensure this path is correct
+import SignUpScreen from './app/screens/SignUpScreen'; // Ensure this path is correct
 import MenuScreen from './app/screens/Menu'; // Ensure the path to Menu.js is correct
 import ForgotYourPassword from './app/screens/ForgotYourPassword'; // Check this path
 import AboutPage from './app/screens/AboutPage'; // make sure the path is correct

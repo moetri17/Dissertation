@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Image, Alert } from 'react-native';
 import { NavigationProp } from '@react-navigation/native'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
 
@@ -8,14 +8,14 @@ interface RouterProps {
   navigation: NavigationProp<any, any>;
 }
 
-const MenuScreen = ({ navigation} : RouterProps) => {
+const MenuScreen = ({ navigation } : RouterProps) => {
 
-  const handleMenuPress = (menuName) => {
+  const handleMenuPress = ({menuName}: any) => {
     switch (menuName) {
       case 'Quran':
         navigation.navigate('Quran');
         break;
-      case 'Qibla/Location':
+      case 'Location':
         navigation.navigate('Mosque Locations');
         break;
       case 'Chatbot':
@@ -24,23 +24,32 @@ const MenuScreen = ({ navigation} : RouterProps) => {
       case 'About':
         navigation.navigate('About');
         break;
-      // Add more cases for other menu items as needed
     }
   };
-
+  
+  const handleLogout = async () => {
+    try {
+      await FIREBASE_AUTH.signOut();
+      // Navigate to Login screen after successful sign out
+      navigation.navigate('Login');
+    } catch (error) {
+      // Handle sign out error if needed
+      Alert.alert('Logout Failed', 'An error occurred while trying to log out.');
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>
         <MenuButton imageSource={require('./assets/home.png')} text="Home page" onPress={() => handleMenuPress('Home page')} />
         <MenuButton imageSource={require('./assets/quran.png')} text="Quran" onPress={() => handleMenuPress('Quran')} />
         <MenuButton imageSource={require('./assets/events.png')} text="Events" onPress={() => handleMenuPress('Events')} />
-        <MenuButton imageSource={require('./assets/qibla.png')} text="Qibla/Location" onPress={() => handleMenuPress('Qibla/Location')} />
+        <MenuButton imageSource={require('./assets/qibla.png')} text="Location" onPress={() => handleMenuPress('Location')} />
         <MenuButton imageSource={require('./assets/azkar.png')} text="Azkar" onPress={() => handleMenuPress('Azkar')} />
         <MenuButton imageSource={require('./assets/chatbot.png')} text="Chatbot" onPress={() => handleMenuPress('Chatbot')} />
         <MenuButton imageSource={require('./assets/settings.png')} text="Settings" onPress={() => handleMenuPress('Settings')} />
         <MenuButton imageSource={require('./assets/info.png')} text="About" onPress={() => handleMenuPress('About')} />
       </View>
-      <Button onPress={() => FIREBASE_AUTH.signOut() } title='Logout' />
+      <Button onPress={handleLogout} title='Logout' />
     </View>
   );
 };

@@ -7,6 +7,7 @@ import QiblaFinder from './app/screens/QiblaFinder';
 import Chatbot from './app/screens/Chatbot';
 import AboutPage from './app/screens/AboutPage'; // make sure the path is correct
 import ForgotYourPassword from './app/screens/ForgotYourPassword'; // make sure the path is correct
+import SignUpScreen from './app/screens/SignUpScreen'; // make sure the path is correct
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from './FirebaseConfig';
@@ -38,11 +39,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
-      <Stack.Screen name="ForgotPassword" component={ForgotYourPassword} />
         {user ? <Stack.Screen name="Inside" component={InsideLayout} options={{ headerShown: false}}/>
         : 
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false}}/>
         }
+      <Stack.Screen name="ForgotPassword" component={ForgotYourPassword} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

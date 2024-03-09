@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, Button, Linking, Image, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, Linking, Image, StyleSheet, Text } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import { BlurView } from 'expo-blur';
-
 
 
 export default function App() {
@@ -32,30 +30,29 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/outdoor.jpg')} style={styles.backgroundImage} />
-      <BlurView
-        style={styles.absolute}
-        tint="light" // or 'dark', 'default'
-        intensity={80} // Adjust this value for more or less blur
-      />
-      <View style={styles.logoContainer}>
+      <View style={styles.contentContainer}>
         <Image source={require('./assets/Mosque_logo.png')} style={styles.logo} />
-        <Text style={styles.logoText}>NORTHUMBRIA ISLAMIC SOCIETY</Text>
-      </View>
-      <View style={styles.button}>
-        <Button  title="Prayer Facility" onPress={PrayerRoomFacility} />
-      </View>
-      <View style={styles.button}>
-        <Button title="Prayer Location" onPress={PrayerFacility} />
-      </View>
-      <View style={styles.button}>
-        <Button  title="Jummah Facility" onPress={JummahFacility} />
-      </View>
-      <View style={styles.button}>
-        <Button title="Jummah Location" onPress={JummahAddress} />
+        <Text style={styles.logoText}>Northumbria Islamic Society</Text>
+        
+        {/* Prayer Facility Section */}
+        <Text style={styles.sectionTitle}>Muslim Prayer Facility</Text>
+        <TouchableOpacity style={styles.button} onPress={PrayerRoomFacility}>
+          <Text style={styles.buttonText}>Open in Maps</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={PrayerFacility}>
+          <Text style={styles.buttonText}>Copy Address</Text>
+        </TouchableOpacity>
+
+        {/* Jummah Facility Section */}
+        <Text style={styles.sectionTitle}>Jummah Prayer at Lipman Gym</Text>
+        <TouchableOpacity style={styles.button} onPress={JummahFacility}>
+          <Text style={styles.buttonText}>Open in Maps</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={JummahAddress}>
+          <Text style={styles.buttonText}>Copy Address</Text>
+        </TouchableOpacity>
       </View>
     </View>
-
   );
 }
 
@@ -64,16 +61,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  backgroundImage: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
+    backgroundColor: '#FFF9EF',
   },
   logoContainer: {
     position: 'absolute',
-    top: 20, // Adjust this value to move the logo up
     alignItems: 'center',
     width: '100%', // Ensure the container takes the full width
   },
@@ -83,20 +74,31 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   logoText: {
-    marginTop: 10,
     fontWeight: 'bold',
     fontSize: 18,
-    marginBottom: 20,
-  },
-  absolute: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
   },
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: '#3E8DF3', // A shade of blue for better visibility
+    padding: 10,
     borderRadius: 5,
-    width: '60%', // Adjust width as needed
+    marginVertical: 5, // Adds space between buttons
+    width: '80%', // Makes buttons wider for easier tapping
+    alignItems: 'center',
+  },
+  contentContainer: {
+    alignItems: 'center',
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#333',
+    textAlign: 'center',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });

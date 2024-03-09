@@ -58,13 +58,13 @@ const Login = ({navigation} ) => {
                     <ActivityIndicator size='large' color='#1E90FF'/>
                 ) : (
                     <>
-                        <TouchableOpacity onPress={() => navigation.navigate('ForgotYourPassword')}>
+                       <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
                             <Text style={styles.ForgotPasswordText}>Forgot your password?</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={SignIn}>
                             <Text style={styles.buttonText}>Login</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={SignUp}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUp')}>
                             <Text style={styles.buttonText}>Create account</Text>
                         </TouchableOpacity>
                     </>
