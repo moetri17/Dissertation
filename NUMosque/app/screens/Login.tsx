@@ -1,7 +1,7 @@
 import { View, TextInput, StyleSheet, ActivityIndicator, TouchableOpacity, Text, KeyboardAvoidingView, Image } from 'react-native';
 import React, { useState } from 'react';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const Login = ({navigation} ) => {
@@ -13,7 +13,7 @@ const Login = ({navigation} ) => {
     const SignIn = async () => {
         setLoading(true);
         try {
-            const response = await signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
             console.error(error);
         } finally {
@@ -21,18 +21,6 @@ const Login = ({navigation} ) => {
         }
     };
 
-    const SignUp = async () => {
-        setLoading(true);
-        try {
-            const response = await createUserWithEmailAndPassword(auth, email, password);
-            // Handle successful signup here
-        } catch (error) {
-            // Handle signup error here
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <View style={styles.container}>

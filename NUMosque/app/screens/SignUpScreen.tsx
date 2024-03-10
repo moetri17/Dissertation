@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../../FirebaseConfig'; // Make sure this path is correct
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -16,13 +17,13 @@ const SignUpScreen = ({ navigation }) => {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
-      console.log(userCredential); // You might want to do something with the userCredential, like navigation or setting user context
+      console.log(userCredential); 
       Alert.alert("Success", "Account created successfully!", [
-        { text: "OK", onPress: () => navigation.navigate('Inside') } // Navigate to login or another screen as appropriate
+        { text: "OK", onPress: () => navigation.navigate('Inside') } 
       ]);
     } catch (error) {
       let errorMessage = "Failed to create account";
-      if (error instanceof Error) { // TypeScript type guard
+      if (error instanceof Error) {
         errorMessage = error.message;
       }
       Alert.alert('Error', errorMessage);
@@ -32,7 +33,7 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <Image
-        source={require('./assets/Mosque_logo.png')} // Replace with your logo image file
+        source={require('./assets/Mosque_logo.png')} 
         style={styles.logo}
       />
       <Text style={styles.title}>NORTHUMBRIA ISLAMIC SOCIETY</Text>
@@ -82,12 +83,11 @@ const styles = StyleSheet.create({
   backButton: {
     alignSelf: 'flex-start',
     marginBottom: 10,
-    // Adjust padding if necessary
     padding: 10,
   },
   logo: {
-    width: 150, // Adjust the size as necessary
-    height: 150, // Adjust the size as necessary
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
     marginBottom: 20,
   },
@@ -100,15 +100,15 @@ const styles = StyleSheet.create({
   input: {
     width: '80%',
     height: 40,
-    borderColor: '#3E8DF3', // Change this to the shade of blue you prefer
+    borderColor: '#3E8DF3',
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
 },
   button: {
-    width: '50%', // Reduced from '100%' to '90%' to make the button narrower
-    height: 40, // Reduced from 50 to 40 to make the button shorter
+    width: '50%',
+    height: 40,
     backgroundColor: '#3E8DF3',
     alignItems: 'center',
     justifyContent: 'center',

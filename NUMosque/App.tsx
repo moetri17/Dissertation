@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Login from './app/screens/Login';
 import MenuScreen from './app/screens/Menu';
+import Homepage from './app/screens/Homepage';
 import QuranSection from './app/screens/QuranSection'; // Add this line to import QuranSection
 import QiblaFinder from './app/screens/QiblaFinder';
 import Chatbot from './app/screens/Chatbot';
@@ -11,6 +12,7 @@ import SignUpScreen from './app/screens/SignUpScreen'; // make sure the path is 
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from './FirebaseConfig';
+import axios from 'axios';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,7 @@ function InsideLayout() {
   return (
     <InsideStack.Navigator>
       <InsideStack.Screen name="Menu" component={MenuScreen} />
+      <InsideStack.Screen name="Homepage" component={Homepage} />
       <InsideStack.Screen name="Quran" component={QuranSection} />
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />

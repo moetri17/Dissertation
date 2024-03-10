@@ -10,8 +10,11 @@ interface RouterProps {
 
 const MenuScreen = ({ navigation } : RouterProps) => {
 
-  const handleMenuPress = ({menuName}: any) => {
+  const handleMenuPress = (menuName) => {
     switch (menuName) {
+      case 'Homepage':
+        navigation.navigate('Homepage');
+        break;
       case 'Quran':
         navigation.navigate('Quran');
         break;
@@ -40,7 +43,7 @@ const MenuScreen = ({ navigation } : RouterProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>
-        <MenuButton imageSource={require('./assets/home.png')} text="Home page" onPress={() => handleMenuPress('Home page')} />
+        <MenuButton imageSource={require('./assets/home.png')} text="Home page" onPress={() => handleMenuPress('Homepage')} />
         <MenuButton imageSource={require('./assets/quran.png')} text="Quran" onPress={() => handleMenuPress('Quran')} />
         <MenuButton imageSource={require('./assets/events.png')} text="Events" onPress={() => handleMenuPress('Events')} />
         <MenuButton imageSource={require('./assets/qibla.png')} text="Location" onPress={() => handleMenuPress('Location')} />
@@ -105,7 +108,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
   },
-  // Removed footerText style
 });
 
 export default MenuScreen;
