@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Assuming the interface definitions are the same as you provided
@@ -14,51 +14,24 @@ interface Props {
 }
 
 const PrayerTimes: React.FC<Props> = ({ prayerTimes, nextPrayerIndex }) => {
-    if (prayerTimes.length === 0) {
-      return <Text>No prayer times available</Text>;
-    }  const [countdown, setCountdown] = useState('');
-
-  useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date();
-      const nextPrayerTime = new Date();
-      const [hours, minutes] = prayerTimes[nextPrayerIndex].Time.split(':');
-      nextPrayerTime.setHours(parseInt(hours), parseInt(minutes), 0);
-
-      const difference = nextPrayerTime.getTime() - now.getTime();
-      if (difference > 0) {
-        const hoursLeft = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutesLeft = Math.floor((difference / (1000 * 60)) % 60);
-        const secondsLeft = Math.floor((difference / 1000) % 60);
-        setCountdown(`${hoursLeft}:${minutesLeft < 10 ? `0${minutesLeft}` : minutesLeft}:${secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}`);
-      } else {
-        setCountdown("It's time!");
-      }
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-
-    return () => clearInterval(interval);
-  }, [prayerTimes, nextPrayerIndex]);
+  if (prayerTimes.length === 0) {
+    return <Text>No prayer times available</Text>;
+  }
 
   return (
     <View style={prayerStyles.prayerTimesContainer}>
       <Text style={prayerStyles.prayerTitle}>Prayer Times</Text>
-      {countdown && (
-        <Text>Countdown to {prayerTimes[nextPrayerIndex].Name}: {countdown}</Text>
-      )}
       <View style={prayerStyles.prayerTimeHeaderRow}>
-        <Text style={prayerStyles.headerName}>Prayer</Text>
-        <Text style={prayerStyles.headerTime}>Athan Time</Text>
-        <Text style={prayerStyles.headerIqamahTime}>Iqamah Time</Text>
+        <Text style={prayerStyles.headerName}></Text>
+        <Text style={prayerStyles.headerTime}>Athan</Text>
+        <Text style={prayerStyles.headerIqamahTime}>Iqamah </Text>
       </View>
       {prayerTimes.map((prayer, index) => (
         <View
           key={index}
           style={[
             prayerStyles.prayerTimeRow,
-            nextPrayerIndex === index ? prayerStyles.highlightedPrayer : {},
+            index === nextPrayerIndex ? prayerStyles.highlighter : null,
           ]}
         >
           <Text style={prayerStyles.prayerName}>{prayer.Name}</Text>
@@ -69,6 +42,7 @@ const PrayerTimes: React.FC<Props> = ({ prayerTimes, nextPrayerIndex }) => {
     </View>
   );
 };
+
 
 const prayerStyles = StyleSheet.create({
     prayerTimesContainer: {
@@ -140,6 +114,9 @@ const prayerStyles = StyleSheet.create({
       fontSize: 12,
       fontWeight: '500',
       textAlign: 'left',
+    },
+    highlighter: {
+      backgroundColor: '#bde0fe',
     },
   });
 
