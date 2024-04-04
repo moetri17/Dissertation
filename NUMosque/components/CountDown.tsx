@@ -41,7 +41,7 @@ const Countdown = ({ nextPrayer }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.countdownText}><Text style={styles.prayerName}>{nextPrayer.Name}</Text> prayer will be in: {"\n\n"}<Text style={styles.prayerName}>{countdown}</Text></Text>
+      <Text style={styles.countdownText}><Text style={styles.prayerName}>{nextPrayer.NextPrayer}</Text> prayer will be in: {"\n\n"}<Text style={styles.prayerName}>{countdown}</Text></Text>
     </View>
   );
 };
