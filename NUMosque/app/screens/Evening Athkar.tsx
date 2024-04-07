@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffeaba',
   },
   azkarName: {
+    textAlign:'center',
     fontSize: 24,
     fontWeight: 'bold',
     backgroundColor: '#FFF',

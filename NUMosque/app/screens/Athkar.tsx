@@ -3,14 +3,14 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from 'rea
 
 const { height } = Dimensions.get('window'); // Get the screen height
 
-const Azkar = ({ navigation }) => {
+const Athkar = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#89CFF0', height: (height / 3) - 30 }]}
         onPress={() => navigation.navigate('Morning Athkar')}>
         <View style={styles.content}>
-          <Text style={styles.buttonText}>Morning Azkar</Text>
+          <Text style={styles.buttonText}>Morning Athkar</Text>
           <Image source={require('./assets/sun.png')} style={styles.image} />
         </View>
       </TouchableOpacity>
@@ -19,18 +19,16 @@ const Azkar = ({ navigation }) => {
         style={[styles.button, { backgroundColor: '#ffc84d', height: (height / 3) - 30 }]}
         onPress={() => navigation.navigate('Evening Athkar')}>
         <View style={styles.content}>
-          <Text style={styles.buttonText}>Evening Azkar</Text>
-          {/* Add your image here */}
+          <Text style={styles.buttonText}>Evening Athkar</Text>
           <Image source={require('./assets/evening.png')} style={styles.image} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#243447', height: (height / 3) - 30 }]} 
-        onPress={() => navigation.navigate('NightAzkar')}>
+        onPress={() => navigation.navigate('Before Sleep')}>
         <View style={styles.content}>
-          <Text style={styles.buttonText}>Night Azkar</Text>
-          {/* Add your image here */}
+          <Text style={styles.buttonText}>Before Sleep</Text>
           <Image source={require('./assets/night.png')} style={styles.image} />
         </View>
       </TouchableOpacity>
@@ -73,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Azkar;
+export default Athkar;

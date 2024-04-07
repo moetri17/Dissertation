@@ -7,14 +7,19 @@ import QuranSection from './app/screens/QuranSection';
 import QiblaFinder from './app/screens/QiblaFinder';
 import Chatbot from './app/screens/Chatbot';
 import AboutPage from './app/screens/AboutPage';
-import Azkar from './app/screens/Azkar';
+import Athkar from './app/screens/Athkar';
 import MorningAzkar from './app/screens/Morning Athkar';
 import EveningAzkar from './app/screens/Evening Athkar';
+import BeforeSleep from './app/screens/Before Sleep';
+import Surah from './components/Surah';
+import Page from './components/Page';
+import Juz from './components/Juz';
 import ForgotYourPassword from './app/screens/ForgotYourPassword'; 
 import SignUpScreen from './app/screens/SignUpScreen';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from './FirebaseConfig';
+import 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,9 +34,13 @@ function InsideLayout() {
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
       <InsideStack.Screen name="Mosque Locations" component={QiblaFinder} />
-      <InsideStack.Screen name="Azkar" component={Azkar} />
+      <InsideStack.Screen name="Athkar" component={Athkar} />
       <InsideStack.Screen name="Morning Athkar" component={MorningAzkar} />
       <InsideStack.Screen name="Evening Athkar" component={EveningAzkar} />
+      <InsideStack.Screen name="Before Sleep" component={BeforeSleep} />
+      <InsideStack.Screen name="Surah" component={Surah} />
+      <InsideStack.Screen name="Page" component={Page} />
+      <InsideStack.Screen name="Juz" component={Juz} />
     </InsideStack.Navigator>
   );
 }

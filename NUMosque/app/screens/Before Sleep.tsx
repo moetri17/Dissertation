@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view';
 
-const MorningAzkar = () => {
+const BeforeSleep = () => {
   const [azkarData, setAzkarData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -11,11 +11,12 @@ const MorningAzkar = () => {
   const pagerRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://192.168.0.23:8000/api/azkar/morning')
+    fetch('http://192.168.0.23:8000/api/azkar/night')
       .then((response) => response.json())
       .then((data) => {
         setAzkarData(data);
         setIsLoading(false);
+
       })
       .catch((error) => {
         console.error('Error fetching data: ', error);
@@ -97,20 +98,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#bea9de',
   },
   pagerView: {
     flex: 1,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#bea9de',
   },
   page: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#bea9de',
   },
   scrollView: {
     paddingTop: 20,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#bea9de',
   },
   azkarName: {
     textAlign:'center',
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   azkarText: {
-    fontSize: 18,
+    fontSize: 24,
     textAlign: 'center',
     backgroundColor: '#FFF',
     borderRadius: 10,
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#bea9de',
   },
   completedText: {
     fontSize: 24,
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 10,
     paddingTop: 10,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#bea9de',
   },
   
   progressBarContainer: {
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   },
   
   progressBar: {
-    backgroundColor: '#ffc84d',
+    backgroundColor: '#546bab',
     borderRadius: 5,
   },
   
@@ -208,4 +209,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MorningAzkar;
+export default BeforeSleep;

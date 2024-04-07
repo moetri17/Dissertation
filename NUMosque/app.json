@@ -19,7 +19,6 @@
       "config": {
         "usesNonExemptEncryption": false
       }
-      
     },
     "android": {
       "adaptiveIcon": {
@@ -35,7 +34,8 @@
       "favicon": "./app/screens/assets/favicon.png"
     },
     "plugins": [
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font"
     ]
   }
 }

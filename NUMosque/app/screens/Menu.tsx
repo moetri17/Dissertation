@@ -21,8 +21,8 @@ const MenuScreen = ({ navigation } : RouterProps) => {
       case 'Location':
         navigation.navigate('Mosque Locations');
         break;
-      case 'Azkar':
-        navigation.navigate('Azkar');
+      case 'Athkar':
+        navigation.navigate('Athkar');
         break;
       case 'Chatbot':
         navigation.navigate('Chatbot');
@@ -50,7 +50,7 @@ const MenuScreen = ({ navigation } : RouterProps) => {
         <MenuButton imageSource={require('./assets/quran.png')} text="Quran" onPress={() => handleMenuPress('Quran')} />
         <MenuButton imageSource={require('./assets/events.png')} text="Events" onPress={() => handleMenuPress('Events')} />
         <MenuButton imageSource={require('./assets/qibla.png')} text="Location" onPress={() => handleMenuPress('Location')} />
-        <MenuButton imageSource={require('./assets/azkar.png')} text="Azkar" onPress={() => handleMenuPress('Azkar')} />
+        <MenuButton imageSource={require('./assets/azkar.png')} text="Athkar" onPress={() => handleMenuPress('Athkar')} />
         <MenuButton imageSource={require('./assets/chatbot.png')} text="Chatbot" onPress={() => handleMenuPress('Chatbot')} />
         <MenuButton imageSource={require('./assets/settings.png')} text="Settings" onPress={() => handleMenuPress('Settings')} />
         <MenuButton imageSource={require('./assets/info.png')} text="About" onPress={() => handleMenuPress('About')} />

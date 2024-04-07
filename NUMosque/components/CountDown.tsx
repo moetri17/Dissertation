@@ -49,13 +49,16 @@ const Countdown = ({ nextPrayer }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    backgroundColor: '#FFF9EF',
+    alignSelf: 'stretch',
     margin: 10,
     padding: 10,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 8,
-    alignSelf: 'center',
+    backgroundColor: '#FFF8E1',
+    borderRadius: 10,
+    elevation: 3, // For Android shadow
+    shadowColor: '#000', // For iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   prayerName:{
     fontWeight:'bold',

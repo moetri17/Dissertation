@@ -1,154 +1,175 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import SignUpScreen from './app/screens/SignUpScreen'; // Ensure this path is correct
-import MenuScreen from './app/screens/Menu'; // Ensure the path to Menu.js is correct
-import ForgotYourPassword from './app/screens/ForgotYourPassword'; // Check this path
-import AboutPage from './app/screens/AboutPage'; // make sure the path is correct
-import QuranSection from './app/screens/QuranSection'; // Add this line to import QuranSection
-import QiblaFinder from './app/screens/QiblaFinder';
-import Chatbot from './app/screens/Chatbot';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { useFonts, Amiri_400Regular } from '@expo-google-fonts/amiri';
 
-
-const Stack = createStackNavigator();
-
-function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-        navigation.navigate('Menu');
-    };
-
-    const handleGoogleSignIn = () => {
-        // Implement Google Sign-In logic here
-    };
-
-    return (
-        <View style={styles.container}>
-
-
-            <View style={styles.logoContainer}>
-                <Image source={require('./assets/Mosque_logo.png')} style={styles.logo} />
-                <Text style={styles.logoText}>NORTHUMBRIA ISLAMIC SOCIETY</Text>
-                <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignIn}>
-                    <Image source={require('./assets/google.png')} style={styles.googleLogo} />
-                    <Text style={styles.googleButtonText}>Sign in using Google</Text>
-                </TouchableOpacity>
-            </View>
-
-
-            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} />
-            <TextInput style={styles.input} placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
-            
-            
-            <TouchableOpacity onPress={() => navigation.navigate('ForgotYourPassword')}>
-                <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUp')}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-
-
-        </View>
-    );
+interface Page {
+  page: number;
+  text: string;
 }
 
-const App = () => {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="SignUp" component={SignUpScreen} />
-                <Stack.Screen name="Menu" component={MenuScreen} />
-                <Stack.Screen name="ForgotYourPassword" component={ForgotYourPassword} />
-                <Stack.Screen name="Quran" component={QuranSection} />
-                <Stack.Screen name="Chatbot" component={Chatbot} />
-                <Stack.Screen name="About" component={AboutPage} />
-                <Stack.Screen name="Mosque Locations" component={QiblaFinder} />
-            </Stack.Navigator>
+interface SurahOption {
+  label: string;
+  value: string;
+}
 
-        </NavigationContainer>
+const DropdownComponent = () => {
+  const [surahs, setSurahs] = useState<SurahOption[]>([]);
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [pages, setPages] = useState<Page[]>([]);
+  let [fontsLoaded] = useFonts({
+    Amiri_400Regular,
+  });
+
+  useEffect(() => {
+    fetch('http://192.168.0.23:8000/api/surahs')
+      .then((response) => response.json())
+      .then((data) => {
+        const surahOptions = data.map((surah: { Surah: number; Name: string }) => ({
+          label: `${surah.Surah} - ${surah.Name}`,
+          value: surah.Surah.toString(),
+        }));
+        setSurahs(surahOptions);
+      })
+      .catch((error) => {
+        console.error('Error fetching surah list', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (selectedValue) {
+      fetch(`http://192.168.0.23:8000/api/quran/page?surah=${selectedValue}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setPages(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching surah pages', error);
+        });
+    } else {
+      setPages([]);
+    }
+  }, [selectedValue]);
+
+  const renderItem = (item: SurahOption) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{item.label}</Text>
+        {item.value === selectedValue && (
+          <AntDesign
+            style={styles.icon}
+            color="black"
+            name="checkcircle"
+            size={20}
+          />
+        )}
+      </View>
     );
+  };
+
+  return (
+    <View style={styles.container}>
+      <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={surahs}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder="Select Surah"
+        searchPlaceholder="Search..."
+        value={selectedValue}
+        onChange={(item) => {
+          setSelectedValue(item.value);
+        }}
+        renderLeftIcon={() => (
+          <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+        )}
+        renderItem={renderItem}
+      />
+      <ScrollView style={{ marginTop: 10 }}>
+        {pages.map((page) => (
+          <Text key={page.page} style={styles.quranText}>
+             {page.text} {"\n"} {page.page}
+          </Text>
+        ))}
+      </ScrollView>
+    </View>
+  );
 };
+
+export default DropdownComponent;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#FF',
-    padding: 30,
+    backgroundColor: 'white',
   },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
-  },
-  logoText: {
-    fontWeight: 'bold',
-    marginVertical: 20,
-  },
-  googleButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#3E8DF3',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 5,
+  dropdown: {
+    margin: 16,
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
     },
-  googleLogo: {
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  item: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E2E2',
+    backgroundColor: 'white',
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color: '#888',
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    color: '#333',
+  },
+  iconStyle: {
     width: 20,
     height: 20,
-    marginRight: 10,
   },
-  googleButtonText: {
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
-  socialContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '80%',
-    marginBottom: 20,
-  },
-  input: {
-    width: '80%',
+  inputSearchStyle: {
     height: 40,
-    borderColor: '#3E8DF3', // Change this to the shade of blue you prefer
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-},
-  forgotPasswordText: {
-    color: '#3E8DF3',
-    marginBottom: 20,
+    fontSize: 16,
+    borderColor: 'gold',
   },
-  button: {
-    backgroundColor: '#3E8DF3',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    width: '50%',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+  quranText: {
+    fontSize: 24,
+    textAlign: 'center',
+    direction: 'rtl',
+    fontFamily: 'Amiri_400Regular',
+    marginHorizontal: 10, // Add horizontal margin to separate text from divider
+    marginBottom:7,
+    letterSpacing: 4,
+    lineHeight: 60,
+    borderBottomWidth: 1, // Add border at the bottom
+    borderBottomColor: '#CCCCCC', // Border color
   },
 });
-
-export default App;
