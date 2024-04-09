@@ -64,9 +64,6 @@ const PageDetails = ({ route, navigation }) => {
       <ScrollView ref={scrollViewRef}>
         {pageDetails.map((detail, index) => (
           <View key={index} style={styles.pageContainer}>
-            {parseInt(detail.page) === parseInt(detail.surah_start) && (
-              <Text style={styles.surahName}>{detail.surah_name}</Text>
-            )}
             <Text style={styles.text}>{detail.surah_text}</Text>
             <Text style={styles.pageNumber}>{detail.page}</Text>
             <View style={styles.horizontalLine} />
@@ -84,18 +81,11 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: '#fff',
     },
-    surahName: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      padding: 8,
-      marginBottom: 6,
-    },
     text: {
-      fontSize: 22,
+      fontSize: 17,
       color: '#333',
       textAlign: 'center',
-      lineHeight: 55,
+      lineHeight: 42,
       fontFamily: 'Amiri_700Bold'
     },
     pageContainer: {
