@@ -21,6 +21,9 @@ const MenuScreen = ({ navigation } : RouterProps) => {
       case 'Location':
         navigation.navigate('Mosque Locations');
         break;
+      case 'Athkar':
+        navigation.navigate('Athkar');
+        break;
       case 'Chatbot':
         navigation.navigate('Chatbot');
         break;
@@ -47,7 +50,7 @@ const MenuScreen = ({ navigation } : RouterProps) => {
         <MenuButton imageSource={require('./assets/quran.png')} text="Quran" onPress={() => handleMenuPress('Quran')} />
         <MenuButton imageSource={require('./assets/events.png')} text="Events" onPress={() => handleMenuPress('Events')} />
         <MenuButton imageSource={require('./assets/qibla.png')} text="Location" onPress={() => handleMenuPress('Location')} />
-        <MenuButton imageSource={require('./assets/azkar.png')} text="Azkar" onPress={() => handleMenuPress('Azkar')} />
+        <MenuButton imageSource={require('./assets/azkar.png')} text="Athkar" onPress={() => handleMenuPress('Athkar')} />
         <MenuButton imageSource={require('./assets/chatbot.png')} text="Chatbot" onPress={() => handleMenuPress('Chatbot')} />
         <MenuButton imageSource={require('./assets/settings.png')} text="Settings" onPress={() => handleMenuPress('Settings')} />
         <MenuButton imageSource={require('./assets/info.png')} text="About" onPress={() => handleMenuPress('About')} />
@@ -70,7 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   header: {
-    // Removed flex: 1 to stop it from expanding too much
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
@@ -78,9 +80,11 @@ const styles = StyleSheet.create({
   menuContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    paddingTop: 0,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    paddingTop: 2,
+    paddingBottom: 2,
+    
   },
   menuButton: {
     backgroundColor: '#3E8DF3',
@@ -88,13 +92,13 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     overflow: 'hidden',
-    padding: 16,
+    padding: 12,
     alignItems: 'center',
     shadowColor: '#000', // Shadow color
     shadowOffset: { width: 10, height: 2 }, // X-offset and Y-offset of the shadow
     shadowOpacity: 0.5, // Opacity of the shadow
     shadowRadius: 5, // Blur radius of the shadow
-    elevation: 7, // Elevation for Android
+    elevation: 5, // Elevation for Android
   },
   buttonImage: {
     width: '80%',

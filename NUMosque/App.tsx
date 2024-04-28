@@ -3,16 +3,23 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Login from './app/screens/Login';
 import MenuScreen from './app/screens/Menu';
 import Homepage from './app/screens/Homepage';
-import QuranSection from './app/screens/QuranSection'; // Add this line to import QuranSection
+import QuranSection from './app/screens/QuranSection';
 import QiblaFinder from './app/screens/QiblaFinder';
 import Chatbot from './app/screens/Chatbot';
-import AboutPage from './app/screens/AboutPage'; // make sure the path is correct
-import ForgotYourPassword from './app/screens/ForgotYourPassword'; // make sure the path is correct
-import SignUpScreen from './app/screens/SignUpScreen'; // make sure the path is correct
+import AboutPage from './app/screens/AboutPage';
+import Athkar from './app/screens/Athkar';
+import MorningAzkar from './app/screens/Morning Athkar';
+import EveningAzkar from './app/screens/Evening Athkar';
+import BeforeSleep from './app/screens/Before Sleep';
+import Surah from './components/Surah';
+import Page from './components/Page';
+import Juz from './components/Juz';
+import ForgotYourPassword from './app/screens/ForgotYourPassword'; 
+import SignUpScreen from './app/screens/SignUpScreen';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from './FirebaseConfig';
-import axios from 'axios';
+import 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,12 +28,19 @@ const InsideStack = createNativeStackNavigator();
 function InsideLayout() {
   return (
     <InsideStack.Navigator>
-      <InsideStack.Screen name="Menu" component={MenuScreen} />
+      <InsideStack.Screen name="Northumbria ISOC" component={MenuScreen} />
       <InsideStack.Screen name="Homepage" component={Homepage} />
       <InsideStack.Screen name="Quran" component={QuranSection} />
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
       <InsideStack.Screen name="Mosque Locations" component={QiblaFinder} />
+      <InsideStack.Screen name="Athkar" component={Athkar} />
+      <InsideStack.Screen name="Morning Athkar" component={MorningAzkar} />
+      <InsideStack.Screen name="Evening Athkar" component={EveningAzkar} />
+      <InsideStack.Screen name="Before Sleep" component={BeforeSleep} />
+      <InsideStack.Screen name="Surah" component={Surah} />
+      <InsideStack.Screen name="Page" component={Page} />
+      <InsideStack.Screen name="Juz" component={Juz} />
     </InsideStack.Navigator>
   );
 }
