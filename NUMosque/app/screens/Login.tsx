@@ -26,7 +26,7 @@ const Login = ({navigation} ) => {
         <View style={styles.container}>
             <KeyboardAvoidingView behavior='padding' style={styles.keyboardAvoidingView}>
             <Image source={require('./assets/Mosque_logo.png')} style={styles.logo} />
-                <Text style={styles.title}>Northumbria Islamic Society</Text>
+                <Text style={styles.title}>Northumbria ISOC</Text>
                 <TextInput
                     value={email}
                     style={styles.input}
