@@ -7,10 +7,12 @@ import QuranSection from './app/screens/QuranSection';
 import QiblaFinder from './app/screens/QiblaFinder';
 import Chatbot from './app/screens/Chatbot';
 import AboutPage from './app/screens/AboutPage';
+import Settings from './app/screens/Settings';
 import Athkar from './app/screens/Athkar';
 import MorningAzkar from './app/screens/Morning Athkar';
 import EveningAzkar from './app/screens/Evening Athkar';
 import BeforeSleep from './app/screens/Before Sleep';
+import UserEvents from './app/screens/UserEvents';
 import Surah from './components/Surah';
 import Page from './components/Page';
 import Juz from './components/Juz';
@@ -31,6 +33,7 @@ function InsideLayout() {
       <InsideStack.Screen name="Northumbria ISOC" component={MenuScreen} />
       <InsideStack.Screen name="Homepage" component={Homepage} />
       <InsideStack.Screen name="Quran" component={QuranSection} />
+      <InsideStack.Screen name="Events" component={UserEvents} />
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
       <InsideStack.Screen name="Mosque Locations" component={QiblaFinder} />
@@ -41,6 +44,7 @@ function InsideLayout() {
       <InsideStack.Screen name="Surah" component={Surah} />
       <InsideStack.Screen name="Page" component={Page} />
       <InsideStack.Screen name="Juz" component={Juz} />
+      <InsideStack.Screen name="Settings" component={Settings} />
     </InsideStack.Navigator>
   );
 }
