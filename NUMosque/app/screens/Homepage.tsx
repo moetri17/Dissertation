@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import PrayerTimes from '../../components/PrayerTime';
-import Countdown from '../../components/CountDown';
+import PrayerTimes from './components/PrayerTime';
+import Countdown from './components/CountDown';
 import moment from 'moment';
 
 const screenHeight = Dimensions.get('window').height;

@@ -13,9 +13,11 @@ import MorningAzkar from './app/screens/Morning Athkar';
 import EveningAzkar from './app/screens/Evening Athkar';
 import BeforeSleep from './app/screens/Before Sleep';
 import UserEvents from './app/screens/UserEvents';
-import Surah from './components/Surah';
-import Page from './components/Page';
-import Juz from './components/Juz';
+import AdminEvents from './app/screens/AdminEvents';
+import AddEvent from './app/screens/AddEvent';
+import Surah from './app/screens/components/Surah';
+import Page from './app/screens/components/Page';
+import Juz from './app/screens/components/Juz';
 import ForgotYourPassword from './app/screens/ForgotYourPassword'; 
 import SignUpScreen from './app/screens/SignUpScreen';
 import { User, onAuthStateChanged } from 'firebase/auth';
@@ -33,10 +35,12 @@ function InsideLayout() {
       <InsideStack.Screen name="Northumbria ISOC" component={MenuScreen} />
       <InsideStack.Screen name="Homepage" component={Homepage} />
       <InsideStack.Screen name="Quran" component={QuranSection} />
-      <InsideStack.Screen name="Events" component={UserEvents} />
+      <InsideStack.Screen name="Events" component={AdminEvents} />
+      <InsideStack.Screen name="AdminEvents" component={AdminEvents} />
+      <InsideStack.Screen name="AddEvent" component={AddEvent} />
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
-      <InsideStack.Screen name="Mosque Locations" component={QiblaFinder} />
+      <InsideStack.Screen name="QiblaFinder" component={QiblaFinder} />
       <InsideStack.Screen name="Athkar" component={Athkar} />
       <InsideStack.Screen name="Morning Athkar" component={MorningAzkar} />
       <InsideStack.Screen name="Evening Athkar" component={EveningAzkar} />
