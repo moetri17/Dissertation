@@ -15,6 +15,7 @@ import BeforeSleep from './app/screens/Before Sleep';
 import UserEvents from './app/screens/UserEvents';
 import AdminEvents from './app/screens/AdminEvents';
 import AddEvent from './app/screens/AddEvent';
+import EditEvent from './app/screens/EditEvent';
 import Surah from './app/screens/components/Surah';
 import Page from './app/screens/components/Page';
 import Juz from './app/screens/components/Juz';
@@ -38,6 +39,7 @@ function InsideLayout() {
       <InsideStack.Screen name="Events" component={AdminEvents} />
       <InsideStack.Screen name="AdminEvents" component={AdminEvents} />
       <InsideStack.Screen name="AddEvent" component={AddEvent} />
+      <InsideStack.Screen name="EditEvent" component={EditEvent} />
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
       <InsideStack.Screen name="QiblaFinder" component={QiblaFinder} />
