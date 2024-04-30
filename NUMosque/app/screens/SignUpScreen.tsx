@@ -36,7 +36,7 @@ const SignUpScreen = ({ navigation }) => {
       .then(data => {
         // Handle the response from your Laravel API
         Alert.alert("Success", "Account created successfully!", [
-          { text: "OK", onPress: () => navigation.navigate('Inside') }
+          { text: "OK", onPress: () => navigation.replace('Inside') }
         ]);
       })
       .catch((error) => {

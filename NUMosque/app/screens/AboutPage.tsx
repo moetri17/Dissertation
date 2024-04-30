@@ -1,44 +1,44 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, Dimensions, Linking } from 'react-native';
 
-
 const screenHeight = Dimensions.get('window').height;
-
 
 const AboutPage = () => {
     return (
         <ScrollView style={styles.container}>
-            <View style={logoStyles.container}>
-            <Image source={require('./assets/mosqueInside.jpg')} style={logoStyles.image}/> 
-            <View>  
-                <Image source={require('./assets/Mosque_logo.png')} style={logoStyles.logo}/>
-                <View style={logoStyles.textContainer}>  
-                <Text style={logoStyles.text}>Northumbria ISOC</Text>
-                <Text style={logoStyles.text}>Newcastle upon Tyne NE1 8SU</Text>
+            <View style={logoStyles.logoContainer}>
+                <Image source={require('./assets/mosqueInside.jpg')} style={logoStyles.image}/> 
+                <View>  
+                    <Image source={require('./assets/Mosque_logo.png')} style={logoStyles.logo}/>
+                    <View style={logoStyles.textContainer}>  
+                        <Text style={logoStyles.text}>Northumbria ISOC</Text>
+                        <Text style={logoStyles.text}>Newcastle upon Tyne NE1 8SU</Text>
+                    </View>
                 </View>
-            </View>
             </View>
 
             <View style={textStyles.container}>
                 <Text style={textStyles.aboutText}>About Northumbria ISOC:</Text>
-                    <Text style={textStyles.aboutInfo}>
-                        The Islamic society at Northumbria University provides a supportive 
-                        community for Muslim students and educates others about Islam through 
-                        events, talks by renowned speakers, and weekly classes. Celebrations 
-                        include Iftar dinners during Ramadan and Eid. The society, noted for its 
-                        diversity and activity, has won multiple awards, including best society 
-                        and faith society. Facilities for prayer and ablution are available for men 
-                        and women on campus. Membership is open to all for an annual fee, and the 
-                        society maintains an active online presence on social media and can be contacted via email.
-                    </Text>
-
+                <Text style={textStyles.aboutInfo}>
+                    The Islamic society at Northumbria University provides a supportive 
+                    community for Muslim students and educates others about Islam through 
+                    events, talks by renowned speakers, and weekly classes. Celebrations 
+                    include Iftar dinners during Ramadan and Eid. The society, noted for its 
+                    diversity and activity, has won multiple awards, including best society 
+                    and faith society. Facilities for prayer and ablution are available for men 
+                    and women on campus. Membership is open to all for an annual fee, and the 
+                    society maintains an active online presence on social media and can be contacted via email.
+                </Text>
             </View>
 
             <View style={textStyles.container}>
-                <Text>Mosque Services</Text>
-                <Text>Capacity:</Text>
-                <Text>Facilities:</Text>
+                <Text style={textStyles.sectionTitle}>Mosque Services</Text>
+                <Text style={textStyles.infoTitle}>Capacity:</Text>
+                <Text style={textStyles.infoDetails}>50 men, 25 women</Text>
+                <Text style={textStyles.infoTitle}>Facilities:</Text>
+                <Text style={textStyles.infoDetails}>Prayer area, Ablution, Toilets for both men and women</Text>
             </View>
+
 
             <View style={textStyles.container}>
                 <Text style={textStyles.donationText}>Donations:{"\n"}</Text>
@@ -79,23 +79,22 @@ const AboutPage = () => {
     );
 };
 
-
+// Styles have been adjusted to match those from the homepage for consistency
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#FFF',
-      flex: 1,
+        backgroundColor: '#FFF',
+        flex: 1,
     },
-  });
-
+});
 
 const logoStyles = StyleSheet.create({
-    container: {
+    logoContainer: {
         height: screenHeight * 0.25,
         justifyContent: 'center',
         backgroundColor: '#FFF9EF',
         alignItems: 'center',
         width: '100%',
-    },    
+    },
     logo: {
       height: 75,
       width: 75,
@@ -114,7 +113,7 @@ const logoStyles = StyleSheet.create({
     text: {
       fontWeight: '700',
       fontSize: 15,
-      color: '#FFF',
+      color: 'white',
     },
     date: { 
       textAlign: 'left', 
@@ -122,50 +121,70 @@ const logoStyles = StyleSheet.create({
       fontSize: 14, 
       marginLeft:10
     },
-  });
-
+});
 
 const textStyles = StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'column',
-        backgroundColor: '#FFF9EF',
+        backgroundColor: '#FFF8E1',
         margin: 10,
         padding: 10,
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderRadius: 8,
+        borderRadius: 10,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
         alignSelf: 'stretch',
     },
-    aboutText:{
-        fontWeight:'bold',
-        fontSize:16,
+    sectionTitle: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: '#444', // Adding color for headers to differentiate from other texts
     },
-    aboutInfo:{
-        textAlign:'left'
+    infoTitle: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginTop: 10, // Adds space between sections
+        color: '#333', // Slightly darker than the section title for contrast
     },
-    donationText:{
-        fontWeight:'bold',
+    infoDetails: {
+        fontSize: 14,
+        color: '#555', // Standard text color for details
+        paddingLeft: 10, // Indents the details to line up nicely under the title
+    },
+    aboutText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    aboutInfo: {
+        textAlign: 'left',
+        color: '#555', // Color matched to homepage
+    },
+    donationText: {
+        fontWeight: 'bold',
         fontSize: 18,
     },
-    linkText:{
-        color:'#338BA8',
-        fontSize:14,
+    linkText: {
+        color: '#338BA8',
+        fontSize: 14,
     },
-    devInfo:{
-        fontWeight:'bold',
+    devInfo: {
+        fontWeight: 'bold',
         fontSize: 18,
     },
-    myInfo:{
-        fontWeight:'bold',
-        fontSize:14, 
+    myInfo: {
+        fontWeight: 'bold',
+        fontSize: 14, 
     },
-    feedback:{
-     color:'#43A6C6'   
+    feedback: {
+        color: '#43A6C6'   
     },
-    contactInfo:{
-        fontWeight:'bold',
+    contactInfo: {
+        fontWeight: 'bold',
         fontSize: 18,
     },
 });
+
 
 export default AboutPage;

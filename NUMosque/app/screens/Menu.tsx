@@ -15,7 +15,7 @@ const MenuScreen = ({ navigation }: RouterProps) => {
     { name: 'Homepage', imageSource: require('./assets/home.png'), text: 'Home page' },
     { name: 'Quran', imageSource: require('./assets/quran.png'), text: 'Quran' },
     { name: 'Events', imageSource: require('./assets/events.png'), text: 'Events' },
-    { name: 'QiblaFinder', imageSource: require('./assets/qibla.png'), text: 'Location' },
+    { name: 'Locations', imageSource: require('./assets/location.png'), text: 'Locations' },
     { name: 'Athkar', imageSource: require('./assets/azkar.png'), text: 'Athkar' },
     { name: 'Chatbot', imageSource: require('./assets/chatbot.png'), text: 'Chatbot' },
     { name: 'Settings', imageSource: require('./assets/settings.png'), text: 'Settings' },

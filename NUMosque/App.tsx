@@ -4,7 +4,7 @@ import Login from './app/screens/Login';
 import MenuScreen from './app/screens/Menu';
 import Homepage from './app/screens/Homepage';
 import QuranSection from './app/screens/QuranSection';
-import QiblaFinder from './app/screens/QiblaFinder';
+import Locations from './app/screens/Locations';
 import Chatbot from './app/screens/Chatbot';
 import AboutPage from './app/screens/AboutPage';
 import Settings from './app/screens/Settings';
@@ -42,7 +42,7 @@ function InsideLayout() {
       <InsideStack.Screen name="EditEvent" component={EditEvent} />
       <InsideStack.Screen name="Chatbot" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
-      <InsideStack.Screen name="QiblaFinder" component={QiblaFinder} />
+      <InsideStack.Screen name="Locations" component={Locations} />
       <InsideStack.Screen name="Athkar" component={Athkar} />
       <InsideStack.Screen name="Morning Athkar" component={MorningAzkar} />
       <InsideStack.Screen name="Evening Athkar" component={EveningAzkar} />

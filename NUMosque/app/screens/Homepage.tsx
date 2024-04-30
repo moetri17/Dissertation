@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import {Modal, View, Text, Image, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import PrayerTimes from './components/PrayerTime';
 import Countdown from './components/CountDown';
 import moment from 'moment';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -12,6 +13,7 @@ const Homepage = () => {
   const [nextPrayer, setNextPrayer] = useState(null);
   const [ayah, setAyah] = useState(null); // State to store fetched Ayah
   const [ayahTranslation, setAyahTranslation] = useState(null); // State to store fetched Ayah's English translation
+  const [modalVisible, setModalVisible] = useState(false);
 
   const getNextPrayerIndexForToday = (prayerTimes) => {
     const now = moment();
@@ -62,6 +64,7 @@ const Homepage = () => {
 
   const formattedDate = new Intl.DateTimeFormat('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(currentDate);
   const nextPrayerIndex = getNextPrayerIndexForToday(prayerTimes);
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -78,8 +81,17 @@ const Homepage = () => {
         <View style={dateStyles.dateContainer}>
           <Text style={logoStyles.date}>{formattedDate}</Text>
         </View>
+        
         {nextPrayer && <Countdown nextPrayer={nextPrayer} />}
         <PrayerTimes prayerTimes={prayerTimes} nextPrayerIndex={nextPrayerIndex}/>
+
+        <View style={styles.qiblaContainer}>
+          <Text style={styles.qiblaText}>Wondering where the Qibla is?</Text>
+          <TouchableOpacity style={styles.qiblaButton} onPress={() => Linking.openURL('https://qiblafinder.withgoogle.com/intl/en/onboarding')}>
+            <Text style={styles.buttonText}>Find Qibla Direction</Text>
+          </TouchableOpacity>
+        </View>
+
         {ayah && (
           <View style={styles.ayahContainer}>
             <Text style={styles.ayahText}>{ayah.text}</Text>
@@ -89,6 +101,33 @@ const Homepage = () => {
             <Text style={styles.ayahReference}>{`${ayah.surah.name} ${ayah.numberInSurah}`}</Text>
           </View>
         )}
+        
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style={styles.imageContainer}>
+            <Text style={styles.downloadText}>May Prayer Times</Text>
+            <Image source={require('./assets/may_timetable.png')} style={styles.prayerTimesImage} />
+          </View>
+        </TouchableOpacity>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.fullScreenContainer}>
+            <Image source={require('./assets/may_timetable.png')} style={styles.fullScreenImage} />
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)} // Ensure this is straightforward
+              hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // Increase touch area
+            >
+              <Icon name="close" size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
       </ScrollView>
     </>
   );
@@ -106,8 +145,8 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFF8E1',
     borderRadius: 10,
-    elevation: 3, // For Android shadow
-    shadowColor: '#000', // For iOS shadow
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -120,14 +159,86 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#555',
-    marginTop: 10, // Adds space between the Arabic text and its translation
+    marginTop: 10,
   },
   ayahReference: {
     fontSize: 16,
     textAlign: 'center',
     color: '#555',
-    marginTop: 10, // Adds space after the translation for the reference
+    marginTop: 10,
   },
+  qiblaContainer: {
+    backgroundColor: '#FFF8E1',
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    alignItems: 'center',
+  },
+  qiblaText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  qiblaButton: {
+    backgroundColor: '#3E8DF3',
+    padding: 10,
+    borderRadius: 5,
+    width: '80%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  imageContainer: {
+    padding: 10,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  prayerTimesImage: {
+    width: 300,
+    height: 200,
+    resizeMode: 'contain'
+  },
+  downloadText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  fullScreenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  fullScreenImage: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    resizeMode: 'contain',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 20,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  }
 });
 
 const logoStyles = StyleSheet.create({
@@ -158,11 +269,11 @@ const logoStyles = StyleSheet.create({
     fontSize: 15,
     color: 'white',
   },
-  date: { 
-    textAlign: 'left', 
-    marginVertical: 10, 
-    fontSize: 14, 
-    marginLeft:10
+  date: {
+    textAlign: 'left',
+    marginVertical: 10,
+    fontSize: 14,
+    marginLeft: 10,
   }
 });
 
@@ -174,8 +285,8 @@ const dateStyles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFF8E1',
     borderRadius: 10,
-    elevation: 3, // For Android shadow
-    shadowColor: '#000', // For iOS shadow
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
