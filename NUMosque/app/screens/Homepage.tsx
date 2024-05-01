@@ -127,6 +127,7 @@ const Homepage = () => {
             </TouchableOpacity>
           </View>
         </Modal>
+        <Text style={styles.downloadText}>*Jammat times may differ</Text>
 
       </ScrollView>
     </>
@@ -209,7 +210,8 @@ const styles = StyleSheet.create({
   downloadText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: 10,
+    textAlign:'center'
   },
   fullScreenContainer: {
     flex: 1,
