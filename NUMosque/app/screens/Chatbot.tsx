@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, ScrollView, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Chatbot = () => {
   const [input, setInput] = useState('');
   const [conversation, setConversation] = useState([]);
 
   // Directly use the OpenAI API key for testing purposes
-  const apikey = 'sk-proj-QeNsCqs2SrgBTxQtWiOhT3BlbkFJ1qt0U2lVnsTHTH1LzsiF';
+  const apikey = 'sk-proj-QeNsCqs2SrgBTxQtWiOhT3BlbkFJ1qt0U2lVnsTHTH1LzsiF'; // Replace with your actual API key
 
   const handleSend = async () => {
     const userQuestion = input;
     console.log("User Question:", userQuestion);
     setInput('');
-  
+
     setConversation([...conversation, { type: 'user', text: userQuestion }]);
-  
+
     try {
       console.log("Using API Key:", apikey);
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -32,43 +33,37 @@ const Chatbot = () => {
           }]
         }),
       });
-  
+
       const json = await response.json();
-      console.log("Response from OpenAI:", json);
-  
       if (!response.ok) {
         throw new Error(json.error ? json.error.message : "Unknown error");
       }
-  
+
       const botAnswer = json.choices[0].message.content.trim();
-      console.log("Bot Answer:", botAnswer);
-  
       setConversation(prev => [...prev, { type: 'bot', text: botAnswer }]);
     } catch (error) {
-      console.error("Error fetching data from OpenAI", error);
       setConversation(prev => [...prev, { type: 'bot', text: "Sorry, I couldn't understand that." }]);
     }
   };
-  
 
   return (
-    <View style={{ flex: 1, padding: 10, backgroundColor: '#f5f5f5' }}>
-      <ScrollView style={{ flex: 1, padding: 10 }}>
+    <View style={styles.container}>
+      <ScrollView style={styles.chatArea}>
         {conversation.map((msg, index) => (
-          <Text key={index} style={msg.type === 'user' ? { textAlign: 'right', margin: 5, padding: 5, backgroundColor: '#d1edff', alignSelf: 'flex-end', borderRadius: 10 } : { textAlign: 'left', margin: 5, padding: 5, backgroundColor: '#eff0f1', alignSelf: 'flex-start', borderRadius: 10 }}>
+          <Text key={index} style={msg.type === 'user' ? styles.userMsg : styles.botMsg}>
             {msg.text}
           </Text>
         ))}
       </ScrollView>
-      <View style={{ flexDirection: 'row', padding: 10 }}>
+      <View style={styles.inputArea}>
         <TextInput
-          style={{ flex: 1, borderColor: 'gray', borderWidth: 1, borderRadius: 10, padding: 10 }}
+          style={styles.input}
           value={input}
           onChangeText={setInput}
           placeholder="Ask me something..."
         />
-        <TouchableOpacity onPress={handleSend} style={{ backgroundColor: '#4e9efc', borderRadius: 10, padding: 10, marginLeft: 10 }}>
-          <Text style={{ color: 'white' }}>Send</Text>
+        <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+          <Icon name="send" size={24} color="black" />
         </TouchableOpacity>
       </View>
     </View>
@@ -79,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
   },
   chatArea: {
     flex: 1,
@@ -88,6 +83,13 @@ const styles = StyleSheet.create({
   inputArea: {
     flexDirection: 'row',
     padding: 10,
+    backgroundColor: '#FFF', // Subtle background color for input area
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
   input: {
     flex: 1,
@@ -97,19 +99,18 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   sendButton: {
-    backgroundColor: '#4e9efc',
+    backgroundColor: '#FFF8E1',
     borderRadius: 10,
     padding: 10,
     marginLeft: 10,
-  },
-  buttonText: {
-    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   userMsg: {
     textAlign: 'right',
     margin: 5,
     padding: 5,
-    backgroundColor: '#d1edff',
+    backgroundColor: '#d1edff', // Light blue for user messages
     alignSelf: 'flex-end',
     borderRadius: 10,
   },
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     margin: 5,
     padding: 5,
-    backgroundColor: '#eff0f1',
+    backgroundColor: '#FFF8E1', // Cream background for bot messages
     alignSelf: 'flex-start',
     borderRadius: 10,
   },

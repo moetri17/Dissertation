@@ -1,33 +1,47 @@
-import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
-const Eventss = () => {
+import UserEvents from './components/UserEvents';
+import AdminEvents from './components/AdminEvents';
+
+const Events = () => {
   const navigation = useNavigation();
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  onAuthStateChanged(FIREBASE_AUTH, async (user) => {
-    if (user) {
-      const uid = user.uid;
-      console.log("User signed in, UID:", uid);  // Log for debugging
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log("User signed in, UID:", uid);  // Log for debugging
 
-      try {
-        const response = await fetch(`http://192.168.0.23:8000/api/users/${uid}`);
-        const data = await response.json();
-        if (data.is_admin) {
-          console.log("User is admin, navigating to AdminEvents.");
-          navigation.navigate('AdminEvents');
-        } else {
-          console.log("User is not admin, navigating to UserEvents.");
-          navigation.navigate('UserEvents');
+        try {
+          const response = await fetch(`http://192.168.0.23:8000/api/users/${uid}`);
+          const data = await response.json();
+          setUserRole(data.is_admin ? 'admin' : 'user');
+        } catch (error) {
+          console.error("Error fetching user role:", error);
         }
-      } catch (error) {
-        console.error("Error fetching admin status:", error);
       }
-    } else {
-      console.log("No user is signed in.");
-      // Optionally navigate to a login screen or handle appropriately
-    }
-  });
+      setLoading(false);
+    });
+
+    // Cleanup function to unsubscribe from auth listener on unmount
+    return () => unsubscribe();
+  }, [navigation]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      {userRole === 'admin' ? <AdminEvents navigation={undefined} /> : <UserEvents />}
+    </View>
+  );
 };
 
-export default Eventss;
+export default Events;
