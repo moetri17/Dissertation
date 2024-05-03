@@ -39,37 +39,14 @@ const Countdown = ({ nextPrayer }) => {
   const scheduleNotifications = async (targetTime) => {
     const now = new Date();
   
-    // Check if the prayer time is now
-    if (now >= targetTime) {
+    if (now.getTime() === targetTime.getTime()) {
       await Notifications.scheduleNotificationAsync({
         content: {
           title: "Athan Time 🕌",
           body: `${nextPrayer.NextPrayer} prayer is now.`,
         },
-        trigger: null, // Trigger immediately
+        trigger: null,
       });
-    } else {
-      const oneSecondBeforeTime = new Date(targetTime.getTime() - 1000);
-      if (oneSecondBeforeTime > now) {
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "Athan Time 🕌",
-            body: `${nextPrayer.NextPrayer} prayer is now.`,
-          },
-          trigger: oneSecondBeforeTime,
-        });
-      }
-  
-      const reminderTime = new Date(targetTime.getTime() - 5 * 60 * 1000);
-      if (reminderTime > now) {
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: "Prayer Time Reminder 🕌",
-            body: `${nextPrayer.NextPrayer} prayer is in 5 minutes.`,
-          },
-          trigger: reminderTime,
-        });
-      }
     }
   };  
 

@@ -1,64 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Import Icon
-
-const mockEvents = [
-  {
-    id: 1,
-    title: 'Friday Prayer',
-    description: 'Join us for Jumu\'ah at the university mosque.',
-    startDate: '2024-04-04T13:00:00.000Z',
-    endDate: null,
-    location: 'Northumbria University Prayer Facility. ISOC (MASJID)',
-    type: 'Islamic Event',
-    occurrence: 'Weekly',
-    notes: null
-  },
-  {
-    id: 2,
-    title: 'Ramadan Iftars',
-    description: 'Daily Iftars at the mosque during Ramadan.',
-    startDate: '2024-04-23T19:00:00.000Z',
-    endDate: '2024-05-23T19:00:00.000Z',
-    location: 'Northumbria University Prayer Facility. ISOC (MASJID)',
-    type: 'Islamic Event',
-    occurrence: 'Daily',
-    notes: 'Don\'t forget to bring your own dates!'
-  },
-  {
-    id: 3,
-    title: 'Eid Celebration',
-    description: 'Celebrate Eid al-Fitr with the university community.',
-    startDate: '2024-05-13T08:00:00.000Z',
-    endDate: '2024-05-13T11:00:00.000Z',
-    location: 'Northumbria University Students Union',
-    type: 'Islamic Event',
-    occurrence: 'One-off',
-    notes: 'Please wear formal attire.'
-  }
-];
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(2)}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-};
-
-const openGoogleMaps = (location) => {
-  const encodedLocation = encodeURIComponent(location);
-  const url = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
-  Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
-};
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const UserEvents = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('http://192.168.0.23:8000/api/events');
+      const data = await response.json();
+      setEvents(data); // Assuming data is an array of events fetched from the API
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  };
+
+  const openGoogleMaps = (location) => {
+    const encodedLocation = encodeURIComponent(location);
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
+    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Upcoming Events</Text>
-      {mockEvents.map((event) => (
+      {events.map((event) => (
         <View key={event.id} style={styles.eventCard}>
           <Text style={styles.eventTitle}>{event.title}</Text>
           <View style={styles.dateTimeContainer}>
-            <Text style={styles.dateTimeText}>Start: {formatDate(event.startDate)}</Text>
-            {event.endDate && <Text style={styles.dateTimeText}>End: {formatDate(event.endDate)}</Text>}
+            <Text style={styles.dateTimeText}>Start: {formatDate(event.start_date)}</Text>
+            {event.end_date && <Text style={styles.dateTimeText}>End: {formatDate(event.end_date)}</Text>}
           </View>
           <Text style={styles.eventDescription}>{event.description}</Text>
           <TouchableOpacity onPress={() => openGoogleMaps(event.location)} style={styles.locationContainer}>

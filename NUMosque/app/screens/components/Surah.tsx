@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useFonts, Amiri_400Regular, Amiri_700Bold } from '@expo-google-fonts/amiri';
 
+const MAX_PAGE_NUMBER = 604;
+
 const Surah = ({ route, navigation }) => {
   const [surahDetails, setSurahDetails] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +22,7 @@ const Surah = ({ route, navigation }) => {
       .then(data => {
         setSurahDetails(data);
         if (data.length > 0) {
-          setCurrentPage(data[0].page); // Initialize with the first page of the surah
+          setCurrentPage(data[0].page);
         }
       })
       .catch(error => {
@@ -50,11 +52,13 @@ const Surah = ({ route, navigation }) => {
     navigation.setParams({ page: prevPage });
     fetchPage(prevPage);
   };
-  
+
   const onSwipeRight = () => {
-    const nextPage = currentPage + 1;
-    navigation.setParams({ page: nextPage }); // Update the page number in params
-    fetchPage(nextPage);
+    if (currentPage < MAX_PAGE_NUMBER) {
+      const nextPage = currentPage + 1;
+      navigation.setParams({ page: nextPage });
+      fetchPage(nextPage);
+    }
   };
 
   const config = {

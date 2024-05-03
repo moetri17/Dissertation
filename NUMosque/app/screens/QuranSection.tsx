@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-// FIXME: ADD FUNCTIONALITY TO ALL 3 TABS 
-// FIXME: MAKE SURE THE WHOLE QURAN IS PROPRELY FORMATTED IN THE APP WITH NO MISTAKES
-// FIXME: TRY ADDING IN A SWIPING AS WELL AS SCROLLING
 
 interface SurahOption {
   label: string;

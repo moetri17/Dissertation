@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useFonts, Amiri_400Regular, Amiri_700Bold } from '@expo-google-fonts/amiri';
 
+const MAX_PAGE_NUMBER = 604;
+
 const PageDetails = ({ route, navigation }) => {
   const [pageDetails, setPageDetails] = useState([]);
   const scrollViewRef = useRef(null);
@@ -39,9 +41,11 @@ const PageDetails = ({ route, navigation }) => {
 
   
   const onSwipeRight = (gestureState) => {
-    const nextPage = page + 1;
-    navigation.setParams({ page: nextPage }); // Update the page number in params
-    fetchPageDetails(nextPage); // Fetch next page details
+    if (page < MAX_PAGE_NUMBER) {
+      const nextPage = page + 1;
+      navigation.setParams({ page: nextPage });
+      fetchPageDetails(nextPage);
+    }
   };
 
   const config = {

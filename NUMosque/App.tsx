@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Login from './app/screens/Login';
 import MenuScreen from './app/screens/Menu';
@@ -12,6 +12,7 @@ import Athkar from './app/screens/Athkar';
 import MorningAzkar from './app/screens/Morning Athkar';
 import EveningAzkar from './app/screens/Evening Athkar';
 import BeforeSleep from './app/screens/Before Sleep';
+import Eventss from './app/screens/Events';
 import UserEvents from './app/screens/UserEvents';
 import AdminEvents from './app/screens/AdminEvents';
 import AddEvent from './app/screens/AddEvent';
@@ -25,18 +26,35 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createNativeStackNavigator();
 
 const InsideStack = createNativeStackNavigator();
 
-function InsideLayout() {
+function InsideLayout({navigation, route}) {
+
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Homepage';
+
   return (
-    <InsideStack.Navigator>
-      <InsideStack.Screen name="Northumbria ISOC" component={MenuScreen} />
+    <InsideStack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerRight: () => (
+          routeName !== 'Menu' ? (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Menu')}>
+              <Icon name="menu" size={24} color="#000" />
+            </TouchableOpacity>
+          ) : null
+        ),
+      }}>
       <InsideStack.Screen name="Homepage" component={Homepage} />
+      <InsideStack.Screen name="Menu" component={MenuScreen} />
       <InsideStack.Screen name="Quran" component={QuranSection} />
-      <InsideStack.Screen name="Events" component={AdminEvents} />
+      <InsideStack.Screen name="Events" component={Eventss} />
+      <InsideStack.Screen name="UserEvents" component={UserEvents} />
       <InsideStack.Screen name="AdminEvents" component={AdminEvents} />
       <InsideStack.Screen name="AddEvent" component={AddEvent} />
       <InsideStack.Screen name="EditEvent" component={EditEvent} />

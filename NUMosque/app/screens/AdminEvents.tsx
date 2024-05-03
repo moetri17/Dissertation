@@ -45,6 +45,7 @@ const AdminEvents = ({ navigation }) => {
     }
   };
 
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Upcoming Events</Text>

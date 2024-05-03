@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useFonts, Amiri_400Regular, Amiri_700Bold } from '@expo-google-fonts/amiri';
 
+const MAX_PAGE_NUMBER = 604;
+
+
 const Juz = ({ route, navigation }) => {
   const [juzDetails, setJuzDetails] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,6 +31,7 @@ const Juz = ({ route, navigation }) => {
   }, [route.params.juz_number]);
 
   const fetchPage = (pageNumber) => {
+    if (pageNumber <= MAX_PAGE_NUMBER) {
     fetch(`http://192.168.0.23:8000/api/quran/pages?page=${pageNumber}`)
       .then(response => response.json())
       .then(data => {
@@ -37,6 +41,7 @@ const Juz = ({ route, navigation }) => {
       .catch(error => {
         console.error('Error fetching page details:', error);
       });
+    }
   };
 
   useEffect(() => {
