@@ -7,7 +7,7 @@ const Chatbot = () => {
   const [conversation, setConversation] = useState([]);
 
   // Directly use the OpenAI API key for testing purposes
-  const apikey = 'sk-proj-QeNsCqs2SrgBTxQtWiOhT3BlbkFJ1qt0U2lVnsTHTH1LzsiF'; // Replace with your actual API key
+  const apikey = 'sk-proj-QeNsCqs2SrgBTxQtWiOhT3BlbkFJ1qt0U2lVnsTHTH1LzsiF';
 
   const handleSend = async () => {
     const userQuestion = input;
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   inputArea: {
     flexDirection: 'row',
     padding: 10,
-    backgroundColor: '#FFF', // Subtle background color for input area
+    backgroundColor: '#FFF',
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -110,15 +110,15 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     margin: 5,
     padding: 5,
-    backgroundColor: '#d1edff', // Light blue for user messages
+    backgroundColor: '#d1edff',
     alignSelf: 'flex-end',
     borderRadius: 10,
   },
   botMsg: {
     textAlign: 'left',
-    margin: 5,
+    marginVertical: 15,
     padding: 5,
-    backgroundColor: '#FFF8E1', // Cream background for bot messages
+    backgroundColor: '#FFF8E1',
     alignSelf: 'flex-start',
     borderRadius: 10,
   },

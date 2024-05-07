@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useFonts, Amiri_400Regular, Amiri_700Bold } from '@expo-google-fonts/amiri';
+import Toast from 'react-native-toast-message';
 
 const MAX_PAGE_NUMBER = 604;
 
@@ -32,15 +33,23 @@ const Juz = ({ route, navigation }) => {
 
   const fetchPage = (pageNumber) => {
     if (pageNumber <= MAX_PAGE_NUMBER) {
-    fetch(`http://192.168.0.23:8000/api/quran/pages?page=${pageNumber}`)
-      .then(response => response.json())
-      .then(data => {
-        setJuzDetails(data);
-        setCurrentPage(pageNumber); // Update current page
-      })
-      .catch(error => {
-        console.error('Error fetching page details:', error);
-      });
+      fetch(`http://192.168.0.23:8000/api/quran/pages?page=${pageNumber}`)
+        .then(response => response.json())
+        .then(data => {
+          setJuzDetails(data);
+          setCurrentPage(pageNumber);
+          if (data[0] && data[0].juz_start === pageNumber) {
+            Toast.show({
+              type: 'info',
+              text1: `Juz ${data[0].juz_number}`,
+              position: 'bottom',
+              visibilityTime: 2000,
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching page details:', error);
+        });
     }
   };
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import { formatInTimeZone } from 'date-fns-tz';
+import { enGB } from 'date-fns/locale/en-GB';
 
 const Countdown = ({ nextPrayer }) => {
   const [countdown, setCountdown] = useState('');
@@ -10,10 +12,12 @@ const Countdown = ({ nextPrayer }) => {
       const [hours, minutes, seconds] = time.split(':').map(Number);
       const now = new Date();
       const endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
-      if (endTime <= now) {
-        endTime.setDate(endTime.getDate() + 1);
+      const endTimeInLondon = formatInTimeZone(endTime, 'Europe/London', 'yyyy-MM-dd HH:mm:ss', { locale: enGB });
+      const endTimeUTC = new Date(endTimeInLondon);
+      if (endTimeUTC <= now) {
+        endTimeUTC.setDate(endTimeUTC.getDate() + 1);
       }
-      return endTime;
+      return endTimeUTC;
     };
 
     const targetTime = calculateEndTime(nextPrayer.Time);
@@ -28,7 +32,7 @@ const Countdown = ({ nextPrayer }) => {
         const secondsLeft = Math.floor((distance / 1000) % 60).toString().padStart(2, '0');
         setCountdown(`${hoursLeft}:${minutesLeft}:${secondsLeft}`);
       } else {
-        setCountdown('00:00:00');
+        setCountdown(nextPrayer);
       }
     };
 
@@ -37,18 +41,14 @@ const Countdown = ({ nextPrayer }) => {
   }, [nextPrayer]);
 
   const scheduleNotifications = async (targetTime) => {
-    const now = new Date();
-  
-    if (now.getTime() === targetTime.getTime()) {
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "Athan Time 🕌",
-          body: `${nextPrayer.NextPrayer} prayer is now.`,
-        },
-        trigger: null,
-      });
-    }
-  };  
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Athan Time 🕌",
+        body: `${nextPrayer.NextPrayer} prayer is now.`,
+      },
+      trigger: targetTime,
+    });
+  }; 
 
   return (
     <View style={styles.container}>

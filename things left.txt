@@ -1,11 +1,7 @@
 things left:
-3- admin event specific 3-5
-4- admin verification (signup) 3-5
+4- admin verification (signup) 3-5 (ADMIN CAN CHANGE USERS TO ADMIN INSTEAD OF EMAIL)
 5- error messages 4-5
-6- countdown fix 4-5
-1- chatbot 5-5,6
 2- settings 5-6, 7
-7- quran pagination fix 7-5
 8- athan notification 7-5
 9- fetch apis upon opening the app 8-5
 10- comments 8-5

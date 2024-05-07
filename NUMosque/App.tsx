@@ -5,7 +5,7 @@ import MenuScreen from './app/screens/Menu';
 import Homepage from './app/screens/Homepage';
 import QuranSection from './app/screens/QuranSection';
 import Locations from './app/screens/Locations';
-import Chatbot from './app/screens/Chatbot';
+import Chatbot from './app/screens/Ask Me';
 import AboutPage from './app/screens/AboutPage';
 import Settings from './app/screens/Settings';
 import Athkar from './app/screens/Athkar';
@@ -28,6 +28,7 @@ import { FIREBASE_AUTH } from './FirebaseConfig';
 import 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,7 +59,7 @@ function InsideLayout({navigation, route}) {
       <InsideStack.Screen name="AdminEvents" component={AdminEvents} />
       <InsideStack.Screen name="AddEvent" component={AddEvent} />
       <InsideStack.Screen name="EditEvent" component={EditEvent} />
-      <InsideStack.Screen name="Chatbot" component={Chatbot} />
+      <InsideStack.Screen name="Ask Me" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
       <InsideStack.Screen name="Locations" component={Locations} />
       <InsideStack.Screen name="Athkar" component={Athkar} />
@@ -91,6 +92,7 @@ export default function App() {
       <Stack.Screen name="ForgotPassword" component={ForgotYourPassword} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 }

@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { useFonts, Amiri_400Regular, Amiri_700Bold } from '@expo-google-fonts/amiri';
+import Toast from 'react-native-toast-message';
 
 const MAX_PAGE_NUMBER = 604;
 
@@ -20,6 +21,14 @@ const PageDetails = ({ route, navigation }) => {
       .then(response => response.json())
       .then(data => {
         setPageDetails(data);
+        if (data[0] && data[0].juz_start === pageNumber) {
+          Toast.show({
+            type: 'info',
+            text1: `Juz ${data[0].juz_number}`,
+            position: 'bottom',
+            visibilityTime: 2000,
+          });
+        }
       })
       .catch(error => {
         console.error('Error fetching page details:', error);
@@ -27,6 +36,7 @@ const PageDetails = ({ route, navigation }) => {
   };
 
   useEffect(() => {
+    console.log("Page number received:", page);
     fetchPageDetails(page);
     scrollViewRef.current?.scrollTo({ y: 0, animated: false });
 

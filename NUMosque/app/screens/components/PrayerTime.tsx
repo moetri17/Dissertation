@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-// Assuming the interface definitions are the same as you provided
 interface PrayerTime {
   Name: string;
   Time: string;

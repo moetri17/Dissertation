@@ -17,7 +17,7 @@ const MenuScreen = ({ navigation }: RouterProps) => {
     { name: 'Events', imageSource: require('./assets/events.png'), text: 'Events' },
     { name: 'Locations', imageSource: require('./assets/location.png'), text: 'Locations' },
     { name: 'Athkar', imageSource: require('./assets/azkar.png'), text: 'Athkar' },
-    { name: 'Chatbot', imageSource: require('./assets/chatbot.png'), text: 'Chatbot' },
+    { name: 'Ask Me', imageSource: require('./assets/chatbot.png'), text: 'Ask Me' },
     { name: 'Settings', imageSource: require('./assets/settings.png'), text: 'Settings' },
     { name: 'About', imageSource: require('./assets/info.png'), text: 'About' },
   ];

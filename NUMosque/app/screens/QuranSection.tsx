@@ -1,30 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
-
-
-interface SurahOption {
-  label: string;
-  value: string;
-}
-
-interface PageOption {
-  page: number;
-  surah_name: string;
-  juz_number: number;
-}
-
-interface JuzOption {
-  juz_number: number;
-  juz_name: string;
-}
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Quran = ({ navigation }) => {
   const tabs = ['surah', 'page', 'juz'];
-  const [surahs, setSurahs] = useState<SurahOption[]>([]);
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0); // Use tab index instead
+  const [surahs, setSurahs] = useState([]);
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [pages, setPages] = useState([]);
   const [juz, setJuz] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
 
   useEffect(() => {
@@ -120,6 +105,44 @@ const Quran = ({ navigation }) => {
     }
   };
 
+  const onSearch = () => {
+    const numberQuery = parseInt(searchQuery);
+    if (!isNaN(numberQuery) && numberQuery > 0) {
+      let paramName;
+      let maxNumber;
+  
+      switch (tabs[selectedTabIndex]) {
+        case 'page':
+          paramName = 'page';  // Directly use 'page' as it doesn't follow the "_number" suffix
+          maxNumber = 604;
+          break;
+        case 'surah':
+          paramName = 'surah_number';
+          maxNumber = 114;  // Assuming there are 114 surahs
+          break;
+        case 'juz':
+          paramName = 'juz_number';
+          maxNumber = 30;  // Assuming there are 30 juz
+          break;
+        default:
+          console.error('Invalid tab index');
+          return;
+      }
+  
+      if (numberQuery <= maxNumber) {
+        navigation.navigate(tabs[selectedTabIndex].charAt(0).toUpperCase() + tabs[selectedTabIndex].slice(1), {
+          [paramName]: numberQuery
+        });
+        setSearchQuery(''); // Clear the search input
+      } else {
+        alert(`Please enter a valid ${tabs[selectedTabIndex]} number between 1 and ${maxNumber}`);
+      }
+    } else {
+      console.log('Search query is not a number');
+      alert('Please enter a valid number');
+    }
+  };
+
   return (
     <GestureRecognizer
       onSwipeLeft={() => onSwipe('SWIPE_LEFT')}
@@ -137,6 +160,20 @@ const Quran = ({ navigation }) => {
             <Text style={styles.tabText}>{tab.toUpperCase()}</Text>
           </TouchableOpacity>
         ))}
+      </View>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          placeholder={`Search by ${tabs[selectedTabIndex]} number`}
+          keyboardType="numeric"
+          returnKeyType="search"
+          onSubmitEditing={onSearch}
+        />
+        <TouchableOpacity onPress={onSearch}>
+          <Icon name="search" size={24} color="#007AFF" />
+        </TouchableOpacity>
       </View>
       <ScrollView>
         {renderList()}
@@ -185,6 +222,25 @@ const styles = StyleSheet.create({
   textItem: {
     fontSize: 16,
     color: '#333',
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: '#F8F8F8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E2E2',
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    borderColor: '#E2E2E2',
+    borderWidth: 1,
+    marginRight: 8,
+    paddingHorizontal: 10,
+    borderRadius: 5,
   },
 });
 
