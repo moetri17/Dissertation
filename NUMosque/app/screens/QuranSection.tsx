@@ -113,16 +113,16 @@ const Quran = ({ navigation }) => {
   
       switch (tabs[selectedTabIndex]) {
         case 'page':
-          paramName = 'page';  // Directly use 'page' as it doesn't follow the "_number" suffix
+          paramName = 'page';
           maxNumber = 604;
           break;
         case 'surah':
           paramName = 'surah_number';
-          maxNumber = 114;  // Assuming there are 114 surahs
+          maxNumber = 114;
           break;
         case 'juz':
           paramName = 'juz_number';
-          maxNumber = 30;  // Assuming there are 30 juz
+          maxNumber = 30;
           break;
         default:
           console.error('Invalid tab index');
@@ -133,12 +133,11 @@ const Quran = ({ navigation }) => {
         navigation.navigate(tabs[selectedTabIndex].charAt(0).toUpperCase() + tabs[selectedTabIndex].slice(1), {
           [paramName]: numberQuery
         });
-        setSearchQuery(''); // Clear the search input
+        setSearchQuery('');
       } else {
         alert(`Please enter a valid ${tabs[selectedTabIndex]} number between 1 and ${maxNumber}`);
       }
     } else {
-      console.log('Search query is not a number');
       alert('Please enter a valid number');
     }
   };

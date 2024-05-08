@@ -7,6 +7,9 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
   const handleSignUp = async () => {
@@ -14,12 +17,12 @@ const SignUpScreen = ({ navigation }) => {
       Alert.alert('Error', 'Passwords do not match');
       return;
     }
-  
+
     try {
       const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
       const uid = userCredential.user.uid;
       const adminStatus = isAdmin;
-  
+
       // Use fetch to send the data to your Laravel backend
       fetch('http://192.168.0.23:8000/api/users', {
         method: 'POST',
@@ -29,6 +32,9 @@ const SignUpScreen = ({ navigation }) => {
         body: JSON.stringify({
           uid: uid,
           email: email,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number: phoneNumber,
           isAdmin: adminStatus,
         }),
       })
@@ -43,7 +49,7 @@ const SignUpScreen = ({ navigation }) => {
         console.error('Error:', error);
         Alert.alert('Error', 'Failed to register user in the backend.');
       });
-  
+
     } catch (error) {
       let errorMessage = "Failed to create account";
       if (error instanceof Error) {
@@ -59,11 +65,30 @@ const SignUpScreen = ({ navigation }) => {
       <Text style={styles.title}>NORTHUMBRIA ISOC</Text>
       <TextInput
         style={styles.input}
+        placeholder="First Name"
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        value={lastName}
+        onChangeText={setLastName}
+      />
+      <TextInput
+        style={styles.input}
         placeholder="Enter Email"
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
         keyboardType="email-address"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Phone Number (Optional)"
+        value={phoneNumber}
+        onChangeText={setPhoneNumber}
+        keyboardType="phone-pad"
       />
       <TextInput
         style={styles.input}
@@ -78,14 +103,6 @@ const SignUpScreen = ({ navigation }) => {
         secureTextEntry
         value={confirmPassword}
         onChangeText={setConfirmPassword}
-      />
-      <Text style={styles.switchLabel}>Admin</Text>
-      <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isAdmin ? "#3E8DF3" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={setIsAdmin}
-        value={isAdmin}
       />
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
@@ -124,12 +141,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-  },
-  switchLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#3E8DF3', // Updated color to match your theme
-    marginBottom: 5,
   },
   button: {
     width: '50%',

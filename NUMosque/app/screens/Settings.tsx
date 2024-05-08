@@ -1,93 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Switch, Alert } from 'react-native';
-import { getAuth, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, getFirestore } from 'firebase/firestore';
-import { NavigationProp } from '@react-navigation/native';
+import { View, Text, ActivityIndicator } from 'react-native';
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
-interface RouterProps {
-    navigation: NavigationProp<any, any>;
-}
+import AdminSettings from './components/AdminSettings';
+import UserSettings from './components/UserSettings';
 
-const Settings = ({ navigation }: RouterProps) => {
-    const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-    const auth = getAuth();
-    const db = getFirestore();
-    const user = auth.currentUser;
+const Settings = () => {
+  const navigation = useNavigation();
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (user) {
-            const userSettingsRef = doc(db, "userSettings", user.uid);
-            getDoc(userSettingsRef).then((docSnapshot) => {
-                if (docSnapshot.exists()) {
-                    setNotificationsEnabled(docSnapshot.data().notificationsEnabled);
-                }
-            }).catch(error => {
-                console.error("Error fetching user settings:", error);
-            });
-        }
-    }, [user, db]);
-
-    const toggleSwitch = async () => {
-        const newSetting = !notificationsEnabled;
-        setNotificationsEnabled(newSetting);
-        if (user) {
-            const userSettingsRef = doc(db, "userSettings", user.uid);
-            await setDoc(userSettingsRef, { notificationsEnabled: newSetting }, { merge: true })
-                .catch(error => {
-                    console.error("Error updating settings:", error);
-                });
-        }
-    };
-
-    const handleLogout = async () => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, async (user) => {
+      if (user) {
+        const uid = user.uid;
         try {
-            await signOut(auth);
-            navigation.navigate('Login');
+          const response = await fetch(`http://192.168.0.23:8000/api/users/${uid}`);
+          const data = await response.json();
+          setUserRole(data.is_admin ? 'admin' : 'user');
         } catch (error) {
-            Alert.alert('Logout Failed', 'An error occurred while trying to log out.');
+          console.error("Error fetching user role:", error);
         }
-    };
+      }
+      setLoading(false);
+    });
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.switchContainer}>
-                <Text>Enable Notifications</Text>
-                <Switch
-                    trackColor={{ false: "#767577", true: "#81b0ff" }}
-                    thumbColor={notificationsEnabled ? "#f5dd4b" : "#f4f3f4"}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={notificationsEnabled}
-                />
-            </View>
-            <TouchableOpacity style={styles.button} onPress={handleLogout}>
-                <Text>Logout</Text>
-            </TouchableOpacity>
-        </View>
-    );
+    // Cleanup function to unsubscribe from auth listener on unmount
+    return () => unsubscribe();
+  }, [navigation]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      {userRole === 'admin' ? <AdminSettings navigation={navigation} /> : <UserSettings navigation={navigation} />}
+    </View>
+  );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        padding: 20,
-    },
-    switchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 30,
-    },
-    button: {
-        alignSelf: 'center',
-        width: 150,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ddd',
-        borderRadius: 5,
-    }
-});
 
 export default Settings;

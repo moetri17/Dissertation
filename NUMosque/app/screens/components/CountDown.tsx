@@ -31,8 +31,6 @@ const Countdown = ({ nextPrayer }) => {
         const minutesLeft = Math.floor((distance / (1000 * 60)) % 60).toString().padStart(2, '0');
         const secondsLeft = Math.floor((distance / 1000) % 60).toString().padStart(2, '0');
         setCountdown(`${hoursLeft}:${minutesLeft}:${secondsLeft}`);
-      } else {
-        setCountdown(nextPrayer);
       }
     };
 

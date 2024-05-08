@@ -16,7 +16,6 @@ const Events = () => {
     const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, async (user) => {
       if (user) {
         const uid = user.uid;
-        console.log("User signed in, UID:", uid);  // Log for debugging
 
         try {
           const response = await fetch(`http://192.168.0.23:8000/api/users/${uid}`);
@@ -39,7 +38,7 @@ const Events = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {userRole === 'admin' ? <AdminEvents navigation={undefined} /> : <UserEvents />}
+      {userRole === 'admin' ? <AdminEvents navigation={navigation} /> : <UserEvents />}
     </View>
   );
 };

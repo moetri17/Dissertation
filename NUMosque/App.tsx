@@ -7,16 +7,19 @@ import QuranSection from './app/screens/QuranSection';
 import Locations from './app/screens/Locations';
 import Chatbot from './app/screens/Ask Me';
 import AboutPage from './app/screens/AboutPage';
+import UserSettings from './app/screens/components/UserSettings';
 import Settings from './app/screens/Settings';
 import Athkar from './app/screens/Athkar';
-import MorningAzkar from './app/screens/Morning Athkar';
-import EveningAzkar from './app/screens/Evening Athkar';
-import BeforeSleep from './app/screens/Before Sleep';
+import MorningAzkar from './app/screens/components/Morning Athkar';
+import EveningAzkar from './app/screens/components/Evening Athkar';
+import BeforeSleep from './app/screens/components/Before Sleep';
 import Eventss from './app/screens/Events';
+import AdminSettings from './app/screens/components/AdminSettings';
 import UserEvents from './app/screens/components/UserEvents';
 import AdminEvents from './app/screens/components/AdminEvents';
-import AddEvent from './app/screens/AddEvent';
-import EditEvent from './app/screens/EditEvent';
+import AddEvent from './app/screens/components/AddEvent';
+import AddAdmin from './app/screens/AddAdmin';
+import EditEvent from './app/screens/components/EditEvent';
 import Surah from './app/screens/components/Surah';
 import Page from './app/screens/components/Page';
 import Juz from './app/screens/components/Juz';
@@ -58,6 +61,7 @@ function InsideLayout({navigation, route}) {
       <InsideStack.Screen name="UserEvents" component={UserEvents} />
       <InsideStack.Screen name="AdminEvents" component={AdminEvents} />
       <InsideStack.Screen name="AddEvent" component={AddEvent} />
+      <InsideStack.Screen name="AddAdmin" component={AddAdmin} />
       <InsideStack.Screen name="EditEvent" component={EditEvent} />
       <InsideStack.Screen name="Ask Me" component={Chatbot} />
       <InsideStack.Screen name="About" component={AboutPage} />
@@ -70,6 +74,8 @@ function InsideLayout({navigation, route}) {
       <InsideStack.Screen name="Page" component={Page} />
       <InsideStack.Screen name="Juz" component={Juz} />
       <InsideStack.Screen name="Settings" component={Settings} />
+      <InsideStack.Screen name="AdminSettings" component={AdminSettings} />
+      <InsideStack.Screen name="UserSettings" component={UserSettings} />
     </InsideStack.Navigator>
   );
 }

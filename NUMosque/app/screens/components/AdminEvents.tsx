@@ -45,7 +45,6 @@ const AdminEvents = ({ navigation }) => {
     }
   };
 
-  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Upcoming Events</Text>
@@ -70,13 +69,13 @@ const AdminEvents = ({ navigation }) => {
                 style={[styles.button, { backgroundColor: '#2E8B57' }]}
                 onPress={() => handleEditEvent(event.id)}
               >
-                <Text style={styles.buttonText}>Edit</Text>
+                <Icon name="pencil" size={20} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.button, { backgroundColor: '#FF6347' }]}
                 onPress={() => handleDeleteEvent(event.id)}
               >
-                <Text style={styles.buttonText}>Delete</Text>
+                <Icon name="delete" size={20} color="#fff" />
               </TouchableOpacity>
             </View>
           </View>
@@ -165,10 +164,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 5,
     marginLeft: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
   },
   addButton: {
     position: 'absolute',

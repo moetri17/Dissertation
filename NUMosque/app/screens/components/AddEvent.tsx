@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Toast from 'react-native-toast-message';
 
 const AddEvent = () => {
   const [title, setTitle] = useState('');
@@ -66,9 +67,14 @@ const AddEvent = () => {
       return response.json();
     })
     .then((data) => {
-      // Handle the response data
-      alert('Event added successfully');
-      // You can navigate away or clear the form here
+      Toast.show({
+        type: 'success',
+        text1: 'Event created successfully!',
+        swipeable:true,
+        position: 'bottom',
+        visibilityTime: 3000,
+        text1Style: { fontSize: 16, fontWeight: 'bold', color: '#000' },
+      });
     })
     .catch((error) => {
       console.error('Failed to add event:', error);
