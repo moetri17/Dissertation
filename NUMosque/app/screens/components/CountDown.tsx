@@ -9,6 +9,7 @@ const Countdown = ({ nextPrayer }) => {
 
   useEffect(() => {
     const calculateEndTime = (time) => {
+
       const [hours, minutes, seconds] = time.split(':').map(Number);
       const now = new Date();
       const endTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
@@ -31,6 +32,8 @@ const Countdown = ({ nextPrayer }) => {
         const minutesLeft = Math.floor((distance / (1000 * 60)) % 60).toString().padStart(2, '0');
         const secondsLeft = Math.floor((distance / 1000) % 60).toString().padStart(2, '0');
         setCountdown(`${hoursLeft}:${minutesLeft}:${secondsLeft}`);
+      } else {
+        setCountdown('00:00:00')
       }
     };
 
@@ -42,7 +45,7 @@ const Countdown = ({ nextPrayer }) => {
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "Athan Time 🕌",
-        body: `${nextPrayer.NextPrayer} prayer is now.`,
+        body: `${nextPrayer.NextPrayer} time is now.`,
       },
       trigger: targetTime,
     });

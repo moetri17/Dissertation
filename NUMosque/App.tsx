@@ -18,7 +18,7 @@ import AdminSettings from './app/screens/components/AdminSettings';
 import UserEvents from './app/screens/components/UserEvents';
 import AdminEvents from './app/screens/components/AdminEvents';
 import AddEvent from './app/screens/components/AddEvent';
-import AddAdmin from './app/screens/AddAdmin';
+import AddAdmin from './app/screens/components/AddAdmin';
 import EditEvent from './app/screens/components/EditEvent';
 import Surah from './app/screens/components/Surah';
 import Page from './app/screens/components/Page';

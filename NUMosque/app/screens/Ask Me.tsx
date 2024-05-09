@@ -11,13 +11,11 @@ const Chatbot = () => {
 
   const handleSend = async () => {
     const userQuestion = input;
-    console.log("User Question:", userQuestion);
     setInput('');
 
     setConversation([...conversation, { type: 'user', text: userQuestion }]);
 
     try {
-      console.log("Using API Key:", apikey);
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
