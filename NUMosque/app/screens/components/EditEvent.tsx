@@ -24,7 +24,7 @@ const EditEvent = ({ route }) => {
 
   const fetchEventDetails = async () => {
     try {
-      const response = await fetch(`http://192.168.0.23/api/events/${eventId}`);
+      const response = await fetch(`http://192.168.0.23:8000/api/events/${eventId}`);
       const eventData = await response.json();
       setTitle(eventData.title);
       setDescription(eventData.description);

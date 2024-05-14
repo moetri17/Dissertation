@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   dateTimeText: {
+    flex:1,
     color: '#333',
     marginRight: 10,
   },

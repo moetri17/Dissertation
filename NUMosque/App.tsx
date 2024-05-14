@@ -23,6 +23,7 @@ import EditEvent from './app/screens/components/EditEvent';
 import Surah from './app/screens/components/Surah';
 import Page from './app/screens/components/Page';
 import Juz from './app/screens/components/Juz';
+import MonthlyPrayers from './app/screens/MonthlyPrayers';
 import ForgotYourPassword from './app/screens/ForgotYourPassword'; 
 import SignUpScreen from './app/screens/SignUpScreen';
 import { User, onAuthStateChanged } from 'firebase/auth';
@@ -58,6 +59,7 @@ function InsideLayout({navigation, route}) {
       <InsideStack.Screen name="Menu" component={MenuScreen} />
       <InsideStack.Screen name="Quran" component={QuranSection} />
       <InsideStack.Screen name="Events" component={Eventss} />
+      <InsideStack.Screen name="MonthlyPrayers" component={MonthlyPrayers} />
       <InsideStack.Screen name="UserEvents" component={UserEvents} />
       <InsideStack.Screen name="AdminEvents" component={AdminEvents} />
       <InsideStack.Screen name="AddEvent" component={AddEvent} />

@@ -80,10 +80,11 @@ const MorningAzkar = () => {
             <ScrollView style={styles.scrollView}>
               <Text style={styles.azkarName}>{azkar.Name}</Text>
               <Text style={styles.azkarText}>{azkar.Text} {"\n"} (x{azkar.Repitition})</Text>
-              <Text style={styles.azkarTranslation}>{azkar.Translation}</Text>
               <TouchableOpacity style={styles.counter} onPress={() => handlePress(azkar.Repitition)}>
                 <Text style={styles.counterText}>Next: {currentCount}/{azkar.Repitition}</Text>
               </TouchableOpacity>
+              <Text style={styles.azkarTranslation}>{azkar.Translation}</Text>
+
             </ScrollView>
           </View>
         ))}
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   counter: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: '#4CAF50',
     paddingVertical: 5,
     paddingHorizontal: 10,

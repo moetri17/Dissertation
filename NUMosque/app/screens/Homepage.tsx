@@ -3,7 +3,7 @@ import {Modal, View, Text, Image, StyleSheet, Dimensions, ScrollView, TouchableO
 import PrayerTimes from './components/PrayerTime';
 import Countdown from './components/CountDown';
 import moment from 'moment';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MonthlyPrayers from './MonthlyPrayers';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -102,32 +102,7 @@ const Homepage = () => {
           </View>
         )}
         
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <View style={styles.imageContainer}>
-            <Text style={styles.downloadText}>May Prayer Times</Text>
-            <Image source={require('./assets/may_timetable.png')} style={styles.prayerTimesImage} />
-          </View>
-        </TouchableOpacity>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.fullScreenContainer}>
-            <Image source={require('./assets/may_timetable.png')} style={styles.fullScreenImage} />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)} // Ensure this is straightforward
-              hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }} // Increase touch area
-            >
-              <Icon name="close" size={24} color="#FFFFFF" />
-            </TouchableOpacity>
-          </View>
-        </Modal>
-        <Text style={styles.downloadText}>*Jammat times may differ</Text>
+        <MonthlyPrayers />
 
       </ScrollView>
     </>
