@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\Moham\Documents\Laravel_projects\matches.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="9995"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainrecruitee"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE IF NOT EXISTS matches (
+    match_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    recruitee_id INTEGER NOT NULL,
+    study_id INTEGER NOT NULL,
+    recruitee_status TEXT DEFAULT 'pending',
+    study_status TEXT DEFAULT 'pending',
+    FOREIGN KEY (recruitee_id) REFERENCES recruitee(recruitee_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (study_id) REFERENCES studies(study_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
