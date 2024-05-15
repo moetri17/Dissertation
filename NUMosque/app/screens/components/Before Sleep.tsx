@@ -39,11 +39,12 @@ const BeforeSleep = () => {
 
   const ProgressBar = ({ current, total }) => {
     const progressBarWidth = ((current / total) * 100) + '%';
+    const numericProgressBarWidth = parseInt(progressBarWidth);
   
     return (
       <View style={styles.progressBarOverallContainer}>
         <View style={styles.progressBarContainer}>
-          <View style={[styles.progressBar, { width: progressBarWidth }]} />
+          <View style={[styles.progressBar, { width: numericProgressBarWidth }]} />
         </View>
         <Text style={styles.progressText}>{`${current}/${total}`}</Text>
       </View>
