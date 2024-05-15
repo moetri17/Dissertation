@@ -45,7 +45,7 @@ const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF9EF', // Soft cream background
+    backgroundColor: '#FFF9EF',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   menuButton: {
-    backgroundColor: '#FFF8E1', // Light cream for buttons
+    backgroundColor: '#FFF8E1',
     width: height * 0.18,
     height: height * 0.18,
     borderRadius: height * 0.09,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   buttonText: {
-    color: '#333', // Dark text for better readability
+    color: '#333',
     marginTop: 8,
     textAlign: 'center',
     fontSize: 14,

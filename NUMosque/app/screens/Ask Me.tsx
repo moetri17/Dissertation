@@ -6,7 +6,6 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [conversation, setConversation] = useState([]);
 
-  // Directly use the OpenAI API key for testing purposes
   const apikey = 'sk-proj-QeNsCqs2SrgBTxQtWiOhT3BlbkFJ1qt0U2lVnsTHTH1LzsiF';
 
   const handleSend = async () => {

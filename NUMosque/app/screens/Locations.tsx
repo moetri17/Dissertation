@@ -4,7 +4,6 @@ import { View, TouchableOpacity, Linking, Image, StyleSheet, Text, ScrollView, D
 const screenHeight = Dimensions.get('window').height;
 
 const Locations = () => {
-  // Function to open Google Maps at the specified location
   const openLocation = (address) => {
     const encodedAddress = encodeURIComponent(address);
     const url = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
@@ -147,8 +146,8 @@ const dateStyles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFF8E1',
     borderRadius: 10,
-    elevation: 3, // For Android shadow
-    shadowColor: '#000', // For iOS shadow
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

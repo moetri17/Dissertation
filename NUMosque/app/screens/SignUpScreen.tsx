@@ -23,7 +23,6 @@ const SignUpScreen = ({ navigation }) => {
       const uid = userCredential.user.uid;
       const adminStatus = isAdmin;
 
-      // Use fetch to send the data to your Laravel backend
       fetch('http://192.168.0.23:8000/api/users', {
         method: 'POST',
         headers: {
@@ -40,7 +39,6 @@ const SignUpScreen = ({ navigation }) => {
       })
       .then(response => response.json())
       .then(data => {
-        // Handle the response from your Laravel API
         Alert.alert("Success", "Account created successfully!", [
           { text: "OK", onPress: () => navigation.replace('Inside') }
         ]);
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#000', // Updated color to match your theme
+    color: '#000',
     textAlign: 'center',
     marginBottom: 20,
   },

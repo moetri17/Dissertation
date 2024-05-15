@@ -70,15 +70,15 @@ const styles = StyleSheet.create({
     input: {
         width: '80%',
         height: 40,
-        borderColor: '#3E8DF3', // Change this to the shade of blue you prefer
+        borderColor: '#3E8DF3',
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
         borderRadius: 5,
     },
     button: {
-        width: '50%', // Reduced from '100%' to '90%' to make the button narrower
-        height: 40, // Reduced from 50 to 40 to make the button shorter
+        width: '50%',
+        height: 40,
         backgroundColor: '#3E8DF3',
         alignItems: 'center',
         justifyContent: 'center',

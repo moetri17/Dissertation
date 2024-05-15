@@ -11,9 +11,8 @@ const Homepage = () => {
   const [prayerTimes, setPrayerTimes] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [nextPrayer, setNextPrayer] = useState(null);
-  const [ayah, setAyah] = useState(null); // State to store fetched Ayah
-  const [ayahTranslation, setAyahTranslation] = useState(null); // State to store fetched Ayah's English translation
-  const [modalVisible, setModalVisible] = useState(false);
+  const [ayah, setAyah] = useState(null);
+  const [ayahTranslation, setAyahTranslation] = useState(null);
 
   const getNextPrayerIndexForToday = (prayerTimes) => {
     const now = moment();
@@ -23,31 +22,26 @@ const Homepage = () => {
         return i;
       }
     }
-    return -1; // If no future prayer times are found for today, return -1
+    return -1;
   };
 
   useEffect(() => {
     const fetchPrayerTimesAndAyah = async () => {
       try {
-        // API endpoint to fetch all prayer times
         const responseAllTimes = await fetch('http://192.168.0.23:8000/api/prayer-times');
         const allTimesData = await responseAllTimes.json();
         setPrayerTimes(allTimesData);
 
-        // API endpoint to fetch the next prayer time
         const responseNextPrayer = await fetch('http://192.168.0.23:8000/api/next-prayer-time');
         const nextPrayerData = await responseNextPrayer.json();
         setNextPrayer(nextPrayerData);
 
-        // Generate a random Ayah number
         const randomAyahNumber = Math.floor(Math.random() * 6236) + 1;
-        // Fetch the random Ayah
         const responseAyah = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyahNumber}`);
         const ayahData = await responseAyah.json();
         if (ayahData && ayahData.data) {
           setAyah(ayahData.data);
 
-          // Fetch the English translation of the Ayah
           const responseAyahTranslation = await fetch(`http://api.alquran.cloud/v1/ayah/${randomAyahNumber}/en.asad`);
           const ayahTranslationData = await responseAyahTranslation.json();
           if (ayahTranslationData && ayahTranslationData.data) {
@@ -192,7 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     width: '100%',
     height: '100%',
     position: 'absolute',

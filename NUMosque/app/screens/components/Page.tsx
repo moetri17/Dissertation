@@ -43,7 +43,6 @@ const PageDetails = ({ route, navigation }) => {
   }, [page]);
 
   const onSwipeLeft = (gestureState) => {
-    // Assuming you have a way to determine the last page number, prevent going beyond it.
     const prevPage = page > 1 ? page - 1 : 1;
     navigation.setParams({ page: prevPage });
     fetchPageDetails(prevPage);

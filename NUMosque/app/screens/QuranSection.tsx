@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   selectedTab: {
     borderBottomWidth: 3,
-    borderBottomColor: '#007AFF', // Highlight color for the selected tab
+    borderBottomColor: '#007AFF',
   },
   tabText: {
     fontSize: 16,

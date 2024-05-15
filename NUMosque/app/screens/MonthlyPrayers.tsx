@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, Modal, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-// Get device screen dimensions
 const { width, height } = Dimensions.get('window');
 
-// Data for each month
+
 const months = [
   { name: 'January', image: require('./assets/january_timetable.png') },
   { name: 'February', image: require('./assets/february_timetable.png') },
@@ -71,15 +70,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   prayerTimesImage: {
-    width: width * 0.6, // Dynamically set width
-    height: height * 0.4, // Dynamically set height
+    width: width * 0.6,
+    height: height * 0.4,
     resizeMode: 'contain',
   },
   fullScreenContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     width: width,
     height: height,
     position: 'absolute',

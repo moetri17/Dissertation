@@ -23,7 +23,7 @@ const Juz = ({ route, navigation }) => {
       .then(data => {
         setJuzDetails(data);
         if (data.length > 0) {
-          setCurrentPage(data[0].page); // Initialize with the first page of the juz
+          setCurrentPage(data[0].page);
         }
       })
       .catch(error => {
@@ -81,7 +81,7 @@ const Juz = ({ route, navigation }) => {
   }
 
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>; // Consider using AppLoading here as well
+    return <Text>Loading...</Text>;
   }
 
   return (

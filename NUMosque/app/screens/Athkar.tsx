@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
 
-const { height } = Dimensions.get('window'); // Get the screen height
+const { height } = Dimensions.get('window');
 
 const Athkar = ({ navigation }) => {
   return (
@@ -39,35 +39,35 @@ const Athkar = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around', // This will distribute space evenly, including between elements
+    justifyContent: 'space-around',
     alignItems: 'center',
     padding: 10,
     backgroundColor: '#f5f5f5',
   },
   button: {
-    width: '100%', // Take up all available width
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    marginBottom: 10, // Adds a margin between the buttons
+    marginBottom: 10,
   },
   content: {
-    flexDirection: 'row', // Aligns text and image side by side
-    alignItems: 'center', // Centers items vertically
-    justifyContent: 'space-between', // Puts max space between text and image
-    width: '100%', // Ensure the content uses the full width of the button
-    paddingHorizontal: 20, // Padding inside the button
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'left', // Aligns the text to the left
+    textAlign: 'left',
   },
   image: {
-    width: 50, // Adjust based on your image
-    height: 50, // Adjust to match the aspect ratio of your image
-    resizeMode: 'contain', // Keeps the aspect ratio of the image
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
   },
 });
 

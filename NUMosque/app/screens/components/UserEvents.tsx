@@ -13,7 +13,7 @@ const UserEvents = () => {
     try {
       const response = await fetch('http://192.168.0.23:8000/api/events');
       const data = await response.json();
-      setEvents(data); // Assuming data is an array of events fetched from the API
+      setEvents(data);
     } catch (error) {
       console.error('Error fetching events:', error);
     }
@@ -84,14 +84,14 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   dateTimeContainer: {
-    backgroundColor: '#E0F7FA',  // Light blueish color
+    backgroundColor: '#E0F7FA',
     padding: 10,
     borderRadius: 5,
     marginBottom: 10
   },
   dateTimeText: {
     fontSize: 16,
-    color: '#007BFF',  // Vivid blue
+    color: '#007BFF',
     fontWeight: 'bold',
   },
   eventTitle: {

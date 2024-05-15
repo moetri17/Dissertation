@@ -71,19 +71,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF9EF'
     },
     logo: {
-        width: 150, // Adjust the width as necessary
-        height: 150, // Adjust the height as necessary
-        marginBottom: 20, // Adds some space below the logo
+        width: 150,
+        height: 150,
+        marginBottom: 20,
     },
     keyboardAvoidingView: {
-        alignItems: 'center', // Center the content
+        alignItems: 'center',
     },
     button: {
         backgroundColor: '#3E8DF3',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
-        width: '80%', // Adjusted to match your input width
+        width: '80%',
         alignItems: 'center',
         marginBottom: 10,
     },
@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginBottom: 20,
         fontWeight: 'bold',
-        color: '#333', // Dark text for better readability
+        color: '#333',
     },
     input: {
         width: '80%',
         height: 40,
-        borderColor: '#3E8DF3', // Change this to the shade of blue you prefer
+        borderColor: '#3E8DF3',
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
@@ -114,6 +114,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        width: '90%', // Adjust based on preference
+        width: '90%',
     },
 })

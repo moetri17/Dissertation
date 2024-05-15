@@ -28,7 +28,6 @@ const Events = () => {
       setLoading(false);
     });
 
-    // Cleanup function to unsubscribe from auth listener on unmount
     return () => unsubscribe();
   }, [navigation]);
 

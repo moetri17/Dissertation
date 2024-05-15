@@ -179,7 +179,7 @@ const EditEvent = ({ route }) => {
     <TextInput 
     style={styles.input} 
     value={formatDateAndTime(startDate)} 
-    editable={false} // This makes the TextInput non-editable
+    editable={false}
     />
 
     <Text style={styles.label}>End Date and Time</Text>
@@ -205,7 +205,7 @@ const EditEvent = ({ route }) => {
     <TextInput 
       style={styles.input} 
       value={formatDateAndTime(endDate)} 
-      editable={false} // This makes the TextInput non-editable
+      editable={false}
     />
 
     <View style={styles.buttonContainer}>
@@ -242,9 +242,9 @@ const styles = StyleSheet.create({
       fontSize: 16,
     },
     buttonContainer: {
-      marginVertical: 10, // Space above and below the button
-      backgroundColor: '#2E8B57', // Green color for the button
-      borderRadius: 5, // Optional: if you want rounded corners
+      marginVertical: 10,
+      backgroundColor: '#2E8B57',
+      borderRadius: 5,
     },
   });
   

@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '700',
     fontSize: 15,
-    color: '#000', // Changed to black for readability
+    color: '#000',
   },
 });
 

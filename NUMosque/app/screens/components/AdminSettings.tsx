@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#ddd',
         borderRadius: 5,
-        marginBottom: 10  // Ensure spacing between buttons
+        marginBottom: 10,
     }
 });
 export default AdminSettings;

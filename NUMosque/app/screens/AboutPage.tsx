@@ -79,7 +79,6 @@ const AboutPage = () => {
     );
 };
 
-// Styles have been adjusted to match those from the homepage for consistency
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FFF',
@@ -140,18 +139,18 @@ const textStyles = StyleSheet.create({
     sectionTitle: {
         fontWeight: 'bold',
         fontSize: 18,
-        color: '#444', // Adding color for headers to differentiate from other texts
+        color: '#444',
     },
     infoTitle: {
         fontWeight: 'bold',
         fontSize: 16,
-        marginTop: 10, // Adds space between sections
-        color: '#333', // Slightly darker than the section title for contrast
+        marginTop: 10,
+        color: '#333', 
     },
     infoDetails: {
         fontSize: 14,
-        color: '#555', // Standard text color for details
-        paddingLeft: 10, // Indents the details to line up nicely under the title
+        color: '#555', 
+        paddingLeft: 10,
     },
     aboutText: {
         fontWeight: 'bold',
@@ -159,7 +158,7 @@ const textStyles = StyleSheet.create({
     },
     aboutInfo: {
         textAlign: 'left',
-        color: '#555', // Color matched to homepage
+        color: '#555', 
     },
     donationText: {
         fontWeight: 'bold',

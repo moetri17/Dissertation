@@ -31,7 +31,7 @@ const Settings = ({ navigation }: RouterProps) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-end',  // Aligns the button to the bottom of the container
+        justifyContent: 'flex-end',
         padding: 20,
     },
     button: {
